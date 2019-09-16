@@ -3,7 +3,7 @@
     | test
 </template>
 
-<style>
+<style lang="stylus">
 </style>
 
 <script>

@@ -20,7 +20,8 @@
     "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",
     "axios": "^0.18.1",
-    "quasar": "^1.0.0"
+    "quasar": "^1.0.0",
+    "stylus": "^0.54.7"
   },
   "devDependencies": {
     "@quasar/app": "^1.0.0",
