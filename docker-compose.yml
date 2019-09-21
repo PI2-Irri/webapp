@@ -1,0 +1,13 @@
+version: '3.5'
+services:
+  webapp:
+    container_name: webapp
+    build: .
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/webapp
+      - yarn_cache:/webapp/node_modules
+
+volumes:
+  yarn_cache:
