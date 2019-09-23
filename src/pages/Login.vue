@@ -7,13 +7,13 @@
     div.form.flex
       div.fields.flex
         q-input.input(
-          placeholder="username"
+          placeholder="Username"
           color="#0A5959"
           bg-color="grey-2"
           dense filled
         )
         q-input.input(
-          placeholder="password"
+          placeholder="Password"
           color="#0A5959"
           bg-color="grey-2"
           dense filled
@@ -37,7 +37,7 @@ export default {
   width 100%
   border-radius 5px
   &:last-child
-    margin-top 10px
+    margin-top 13px
     color #0A5959
 
 .buttons
@@ -47,7 +47,7 @@ export default {
 .input
   width 85%
   &:last-of-type
-    padding-top 10px
+    padding-top 13px
 
 .fields
   width 100%
@@ -64,6 +64,7 @@ export default {
   justify-content center
   img
     width 43%
+    height 43%
 
 .login_page
   background-color #0aa0a0
