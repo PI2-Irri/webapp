@@ -4,7 +4,7 @@
       span.zones_controller-name {{ getControllerName() }}
 
       div.zones_menu
-        zone-item(:key="it" v-for="it in ['maisde60', 'oque', 'peixespo', 'maisde60', 'oque', 'peixespo', 'maisde60', 'oque', 'peixespo']" id="1" :name="it").zone-item
+        zone-item(:key="it" v-for="it in ['maisde60 puta que pariu caraca porra asdaudhaiushdiuashdiash', 'oque', 'peixespo', 'maisde60', 'oque', 'peixespo', 'maisde60', 'oque', 'peixespo']" id="1" :name="it").zone-item
 
 </template>
 

@@ -1,7 +1,7 @@
 <template lang="pug">
   div.zone-item.flex
-    span {{ name }}
-    q-icon(name="keyboard_arrow_right" size="xl")
+    span.zone-item_name {{ name }}
+    q-icon(name="mdi-chevron-right" color="grey-8")
 </template>
 
 <script>
@@ -29,4 +29,11 @@ export default {
   justify-content space-between
   padding 25px 20px
   align-items center
+
+.zone-item_name
+  max-width 80%
+  color $grey-9
+  text-overflow ellipsis
+  overflow hidden
+  white-space nowrap
 </style>

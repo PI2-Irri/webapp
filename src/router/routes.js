@@ -1,6 +1,6 @@
 const routes = [
   {
-    path: '/zones',
+    path: '/controllers',
     component: () => import('layouts/TopBar.vue'),
     children: [
       {
