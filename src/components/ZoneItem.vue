@@ -8,11 +8,6 @@
 export default {
   name: 'ZonesItemComponent',
   props: {
-    id: {
-      // TODO: Change this type to the database type
-      type: String,
-      required: true
-    },
     name: {
       type: String,
       required: true

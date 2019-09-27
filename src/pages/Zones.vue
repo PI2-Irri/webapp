@@ -1,18 +1,17 @@
 <template lang="pug">
   q-page(style="background-color: #EFEFEF")
-    div.flex.zones(@click="changeInfosVisibility(true)")
+    div.flex.zones
       span.zones_controller-name {{ getControllerName() }}
       div.zones_menu
         zone-item(
-          :key="it"
-          :name="it"
-          v-for="it in ['maisde60 puta que pariu caraca porra asdaudhaiushdiuashdiash', 'oque', 'peixespo']"
-          id="1"
-          @click="changeInfosVisibility(true)"
+          v-for="zone in zones"
+          :key="zone.id"
+          :name="zone.name"
+          @click.native="selectZone(zone)"
         ).zone-item
       zone-info(
         :visibility="infosVisibility"
-        :zoneId="selectedZone"
+        :selectedZone="selectedZone"
         @hide-dialog="changeInfosVisibility(false)"
       )
 
@@ -31,16 +30,43 @@ export default {
   data () {
     return {
       infosVisibility: false,
-      selectedZone: -1
+      selectedZone: {},
+      zones: []
     }
   },
   methods: {
     getControllerName () {
+      // gets the name from a prop controllerInfo
       return 'SouFoda'
     },
+    selectZone (zone) {
+      this.selectedZone = zone
+      this.changeInfosVisibility(true)
+    },
     async changeInfosVisibility (value) {
-      console.log('bla')
       this.infosVisibility = value
+    },
+    async fetchZones () {
+      // gets all zones (id, name) tuple from a given controller
+      // controller selected is a prop controllerInfo
+      return [
+        {
+          name: 'Zone for the rabbits',
+          id: 1
+        },
+        {
+          name: 'Kamon',
+          id: 2
+        },
+        {
+          name: 'Wonderland',
+          id: 3
+        },
+        {
+          name: 'Come chilled bro',
+          id: 4
+        }
+      ]
     }
   }
 }
