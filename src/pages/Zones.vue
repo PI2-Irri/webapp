@@ -34,6 +34,10 @@ export default {
       zones: []
     }
   },
+  mounted () {
+    // TODO: not sure this should be here, should it be an sync func?
+    this.zones = this.fetchZones()
+  },
   methods: {
     getControllerName () {
       // gets the name from a prop controllerInfo
@@ -46,7 +50,7 @@ export default {
     async changeInfosVisibility (value) {
       this.infosVisibility = value
     },
-    async fetchZones () {
+    fetchZones () {
       // gets all zones (id, name) tuple from a given controller
       // controller selected is a prop controllerInfo
       return [
