@@ -5,10 +5,12 @@ q-dialog(
   @hide="emitHideEvent()"
 )
   q-card
-    q-card-section
-      p RAPADURA
-    q-card-section
-      span Poe a rapadura pra bater
+    div(v-show="!isLoading")
+      q-card-section
+        p RAPADURA
+      q-card-section
+        span Poe a rapadura pra bater
+    q-inner-loading(:showing="isLoading")
 </template>
 
 <script>
@@ -18,14 +20,33 @@ export default {
     visibility: {
       type: Boolean,
       required: true
+    },
+    zoneId: {
+      type: Number,
+      required: true
     }
   },
   data () {
-    return {}
+    return {
+      isLoading: false
+    }
   },
   methods: {
     async emitHideEvent () {
       this.$emit('hide-dialog')
+    },
+    async fetchZoneInfo () {
+      if (this.zoneId > 0) { // if zone id is valid
+        // TODO: fetch from API zone's data
+        return {
+          groundTemp: 10,
+          ambTemp: 15,
+          precipitation: 20,
+          groundUmidity: 25,
+          hydricConsume: 30,
+          batteries: [0.2, 0.6, 1]
+        }
+      }
     }
   }
 }

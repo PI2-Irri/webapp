@@ -12,6 +12,7 @@
         ).zone-item
       zone-info(
         :visibility="infosVisibility"
+        :zoneId="selectedZone"
         @hide-dialog="changeInfosVisibility(false)"
       )
 
@@ -29,7 +30,8 @@ export default {
   },
   data () {
     return {
-      infosVisibility: false
+      infosVisibility: false,
+      selectedZone: -1
     }
   },
   methods: {
