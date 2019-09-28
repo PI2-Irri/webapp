@@ -10,28 +10,28 @@
           placeholder="Fullname"
           color="#0A5959"
           bg-color="grey-2"
-          v-model="fullname"
+          v-model="infos.fullname"
           dense filled
           )
         q-input.input(
           placeholder="Email"
           color="#0A5959"
           bg-color="grey-2"
-          v-model="email"
+          v-model="infos.email"
           dense filled
           )
         q-input.input(
           placeholder="Username"
           color="#0A5959"
           bg-color="grey-2"
-          v-model="username"
+          v-model="infos.username"
           dense filled
           )
         q-input.input(
           placeholder="Password"
           color="#0A5959"
           bg-color="grey-2"
-          v-model="password"
+          v-model="infos.password"
           dense filled
           )
         q-input.input(
@@ -43,7 +43,9 @@
           )
 
       div.buttons.flex
-        q-btn.signup Sign Up
+        q-btn.signup(
+          @click="signup()"
+        ) Sign Up
         q-btn.signup(
           outline
           @click="$router.push({ name: 'login' })"
@@ -51,15 +53,38 @@
 </template>
 
 <script>
+import { makeSignUp } from '../api/api'
+
 export default {
   name: 'SignUpPage',
   data () {
     return {
-      username: '',
-      password: '',
-      passwordConfirmation: '',
-      email: '',
-      fullname: ''
+      infos: {
+        username: '',
+        password: '',
+        email: '',
+        fullname: ''
+      },
+      passwordConfirmation: ''
+    }
+  },
+  methods: {
+    async signup () {
+      if (this.infos.password !== this.passwordConfirmation) {
+        // TODO: notify
+        return
+      }
+
+      let res = await makeSignUp({
+        ...this.infos
+      })
+
+      if (res !== null) {
+        // TODO: Error ocurred
+        return
+      }
+
+      this.$router.push({ name: 'login' })
     }
   }
 }
