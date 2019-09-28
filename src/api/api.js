@@ -38,7 +38,7 @@ async function makeLogin (params = {}) {
     res = { status: 400 }
   }
 
-  if (res.status !== 200) return null
+  if (res.status !== 200 || res.data.error !== undefined) return null
 
   let user = {
     token: res.data.token,
