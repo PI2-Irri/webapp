@@ -81,6 +81,9 @@ export default {
     if (this.currentUser !== null) {
       this.redirectToControllers()
     }
+  },
+  destroyed () {
+    window.removeEventListener('keyup')
   }
 }
 </script>
