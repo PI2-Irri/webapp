@@ -31,6 +31,7 @@
           placeholder="Password"
           color="#0A5959"
           bg-color="grey-2"
+          type="password"
           v-model="infos.password"
           dense filled
           )
@@ -38,6 +39,7 @@
           placeholder="Password confirmation"
           color="#0A5959"
           bg-color="grey-2"
+          type="password"
           v-model="passwordConfirmation"
           dense filled
           )
@@ -71,7 +73,10 @@ export default {
   methods: {
     async signup () {
       if (this.infos.password !== this.passwordConfirmation) {
-        // TODO: notify
+        this.$q.notify({
+          message: 'Password and its confirmation are not equal',
+          color: 'negative'
+        })
         return
       }
 
@@ -80,7 +85,12 @@ export default {
       })
 
       if (res !== null) {
-        // TODO: Error ocurred
+        let msg = 'Error: '
+        for (let err in res) msg += err + ': ' + res[err] + ' - '
+        this.$q.notify({
+          message: msg,
+          color: 'negative'
+        })
         return
       }
 

@@ -75,7 +75,7 @@ export default {
     }
   },
   created () {
-    // NOT WORKING
+    // TODO: NOT WORKING
     // needs to remove the event listener when component is destroyed
     // window.addEventListener('keyup', (e) => {
     //   if (e.key === 'Enter') this.login()
