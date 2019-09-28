@@ -3,9 +3,21 @@ const routes = [
     path: '',
     component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Login.vue') },
-      { path: '/signup', component: () => import('pages/SignUp.vue') },
-      { path: '/login', component: () => import('pages/Login.vue') }
+      {
+        path: '',
+        name: 'root',
+        component: () => import('pages/Login.vue')
+      },
+      {
+        path: '/signup',
+        name: 'signup',
+        component: () => import('pages/SignUp.vue')
+      },
+      {
+        path: '/login',
+        name: 'login',
+        component: () => import('pages/Login.vue')
+      }
     ]
   }
 ]

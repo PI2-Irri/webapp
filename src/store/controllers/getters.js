@@ -1,3 +1,3 @@
 export function selectedController (state) {
-    return state.selectedController
+  return state.selectedController
 }
