@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { makeLogin } from '../api/api'
 
 export default {
@@ -40,6 +40,9 @@ export default {
       username: '',
       password: ''
     }
+  },
+  computed: {
+    ...mapGetters('users', ['currentUser'])
   },
   methods: {
     ...mapActions('users', ['setCurrentUser']),
@@ -55,21 +58,29 @@ export default {
           message: 'Logged in succesfully',
           color: 'positive'
         })
-        this.$router.push({
-          name: 'controllers'
-        })
+        this.redirectToControllers()
       } else {
         this.$q.notify({
           message: 'Login failed',
           color: 'negative'
         })
       }
+    },
+    redirectToControllers () {
+      this.$router.push({
+        name: 'controllers'
+      })
     }
   },
   created () {
     window.addEventListener('keyup', (e) => {
       if (e.key === 'Enter') this.login()
     })
+  },
+  mounted () {
+    if (this.currentUser !== null) {
+      this.redirectToControllers()
+    }
   }
 }
 </script>
