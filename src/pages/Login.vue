@@ -25,8 +25,10 @@
         q-btn.login(
           @click="login()"
         ) Log in
-        q-btn.login(outline) Register
-
+        q-btn.login(
+          @click="$router.push({ name: 'signup' })"
+          outline
+        ) Register
 </template>
 
 <script>

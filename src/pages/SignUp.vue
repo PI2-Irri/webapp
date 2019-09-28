@@ -7,37 +7,61 @@
     div.form.flex
       div.fields.flex
         q-input.input(
-          placeholder="Nome completo"
+          placeholder="Fullname"
           color="#0A5959"
           bg-color="grey-2"
+          v-model="fullname"
           dense filled
           )
         q-input.input(
-          placeholder="E-mail"
+          placeholder="Email"
           color="#0A5959"
           bg-color="grey-2"
+          v-model="email"
           dense filled
           )
         q-input.input(
           placeholder="Username"
           color="#0A5959"
           bg-color="grey-2"
+          v-model="username"
           dense filled
           )
         q-input.input(
           placeholder="Password"
           color="#0A5959"
           bg-color="grey-2"
+          v-model="password"
           dense filled
           )
+        q-input.input(
+          placeholder="Password confirmation"
+          color="#0A5959"
+          bg-color="grey-2"
+          v-model="passwordConfirmation"
+          dense filled
+          )
+
       div.buttons.flex
         q-btn.signup Sign Up
-        q-btn.signup(outline) Cancel
+        q-btn.signup(
+          outline
+          @click="$router.push({ name: 'login' })"
+        ) Cancel
 </template>
 
 <script>
 export default {
-  name: 'SignUpPage'
+  name: 'SignUpPage',
+  data () {
+    return {
+      username: '',
+      password: '',
+      passwordConfirmation: '',
+      email: '',
+      fullname: ''
+    }
+  }
 }
 </script>
 
