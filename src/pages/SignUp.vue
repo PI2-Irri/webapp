@@ -94,6 +94,11 @@ export default {
         return
       }
 
+      this.$q.notify({
+        message: 'Success',
+        color: 'positive'
+      })
+
       this.$router.push({ name: 'login' })
     }
   }
