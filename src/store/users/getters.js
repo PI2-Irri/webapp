@@ -1,3 +1,3 @@
 export function currentUser (state) {
-    return state.currentUser
+  return state.currentUser
 }

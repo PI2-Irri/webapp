@@ -1,3 +1,3 @@
 export function setCurrentUser ({ commit }, user) {
-    commit('setCurrentUser', user)
+  commit('setCurrentUser', user)
 }

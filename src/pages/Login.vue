@@ -10,23 +10,78 @@
           placeholder="Username"
           color="#0A5959"
           bg-color="grey-2"
+          v-model="username"
           dense filled
         )
         q-input.input(
           placeholder="Password"
           color="#0A5959"
           bg-color="grey-2"
+          v-model="password"
+          type="password"
           dense filled
         )
       div.buttons.flex
-        q-btn.login Log in
+        q-btn.login(
+          @click="login()"
+        ) Log in
         q-btn.login(outline) Register
 
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+import { makeLogin } from '../api/api'
+
 export default {
-  name: 'LoginPage'
+  name: 'LoginPage',
+  data () {
+    return {
+      username: '',
+      password: ''
+    }
+  },
+  computed: {
+    ...mapGetters('users', ['currentUser'])
+  },
+  methods: {
+    ...mapActions('users', ['setCurrentUser']),
+    async login () {
+      let user = await makeLogin({
+        username: this.username,
+        password: this.password
+      })
+
+      if (user !== null) {
+        this.setCurrentUser(user)
+        this.$q.notify({
+          message: 'Logged in succesfully',
+          color: 'positive'
+        })
+        this.redirectToControllers()
+      } else {
+        this.$q.notify({
+          message: 'Login failed',
+          color: 'negative'
+        })
+      }
+    },
+    redirectToControllers () {
+      this.$router.push({
+        name: 'controllers'
+      })
+    }
+  },
+  created () {
+    window.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') this.login()
+    })
+  },
+  mounted () {
+    if (this.currentUser !== null) {
+      this.redirectToControllers()
+    }
+  }
 }
 </script>
 
