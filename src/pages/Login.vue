@@ -73,17 +73,16 @@ export default {
     }
   },
   created () {
-    window.addEventListener('keyup', (e) => {
-      if (e.key === 'Enter') this.login()
-    })
+    // NOT WORKING
+    // needs to remove the event listener when component is destroyed
+    // window.addEventListener('keyup', (e) => {
+    //   if (e.key === 'Enter') this.login()
+    // })
   },
   mounted () {
     if (this.currentUser !== null) {
       this.redirectToControllers()
     }
-  },
-  destroyed () {
-    window.removeEventListener('keyup')
   }
 }
 </script>
