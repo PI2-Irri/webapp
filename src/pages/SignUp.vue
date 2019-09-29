@@ -7,37 +7,101 @@
     div.form.flex
       div.fields.flex
         q-input.input(
-          placeholder="Nome completo"
+          placeholder="Fullname"
           color="#0A5959"
           bg-color="grey-2"
+          v-model="infos.fullname"
           dense filled
           )
         q-input.input(
-          placeholder="E-mail"
+          placeholder="Email"
           color="#0A5959"
           bg-color="grey-2"
+          v-model="infos.email"
           dense filled
           )
         q-input.input(
           placeholder="Username"
           color="#0A5959"
           bg-color="grey-2"
+          v-model="infos.username"
           dense filled
           )
         q-input.input(
           placeholder="Password"
           color="#0A5959"
           bg-color="grey-2"
+          type="password"
+          v-model="infos.password"
           dense filled
           )
+        q-input.input(
+          placeholder="Password confirmation"
+          color="#0A5959"
+          bg-color="grey-2"
+          type="password"
+          v-model="passwordConfirmation"
+          dense filled
+          )
+
       div.buttons.flex
-        q-btn.signup Sign Up
-        q-btn.signup(outline) Cancel
+        q-btn.signup(
+          @click="signup()"
+        ) Sign Up
+        q-btn.signup(
+          outline
+          @click="$router.push({ name: 'login' })"
+        ) Cancel
 </template>
 
 <script>
+import { makeSignUp } from '../api/api'
+
 export default {
-  name: 'SignUpPage'
+  name: 'SignUpPage',
+  data () {
+    return {
+      infos: {
+        username: '',
+        password: '',
+        email: '',
+        fullname: ''
+      },
+      passwordConfirmation: ''
+    }
+  },
+  methods: {
+    async signup () {
+      if (this.infos.password !== this.passwordConfirmation) {
+        this.$q.notify({
+          message: 'Password and its confirmation are not equal',
+          color: 'negative'
+        })
+        return
+      }
+
+      let res = await makeSignUp({
+        ...this.infos
+      })
+
+      if (res !== null) {
+        let msg = 'Error: '
+        for (let err in res) msg += err + ': ' + res[err] + ' - '
+        this.$q.notify({
+          message: msg,
+          color: 'negative'
+        })
+        return
+      }
+
+      this.$q.notify({
+        message: 'Success',
+        color: 'positive'
+      })
+
+      this.$router.push({ name: 'login' })
+    }
+  }
 }
 </script>
 

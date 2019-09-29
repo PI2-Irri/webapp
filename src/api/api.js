@@ -30,7 +30,21 @@ async function post (endpoint, params = {}) {
   return res
 }
 
-async function makeLogin (params = {}) {
+async function makeSignUp (params) {
+  let res = await post(apiEndpoints.SIGNUP, params)
+
+  if (res === null) {
+    res = { error: 'Null response' }
+  }
+
+  if (res.status !== 200 || res.data.error !== undefined) {
+    return res.data
+  }
+
+  return null
+}
+
+async function makeLogin (params) {
   let res = await post(apiEndpoints.LOGIN, params)
 
   if (res === null) {
@@ -52,5 +66,6 @@ export {
   get as apiGet,
   post as apiPost,
   makeLogin,
+  makeSignUp,
   apiEndpoints
 }

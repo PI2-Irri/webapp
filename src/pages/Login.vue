@@ -25,8 +25,10 @@
         q-btn.login(
           @click="login()"
         ) Log in
-        q-btn.login(outline) Register
-
+        q-btn.login(
+          @click="$router.push({ name: 'signup' })"
+          outline
+        ) Register
 </template>
 
 <script>
@@ -73,7 +75,7 @@ export default {
     }
   },
   created () {
-    // NOT WORKING
+    // TODO: NOT WORKING
     // needs to remove the event listener when component is destroyed
     // window.addEventListener('keyup', (e) => {
     //   if (e.key === 'Enter') this.login()
