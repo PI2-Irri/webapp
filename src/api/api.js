@@ -37,23 +37,28 @@ async function getControllers (params) {
   return [
     {
       name: 'Controller 01',
-      is_valid: true
+      is_valid: true,
+      water_reservatory: 10
     },
     {
       name: 'Controller 02',
-      is_valid: true
+      is_valid: true,
+      water_reservatory: 5
     },
     {
       name: 'Controller 03',
-      is_valid: true
+      is_valid: true,
+      water_reservatory: 40
     },
     {
       name: 'Controller 04',
-      is_valid: true
+      is_valid: true,
+      water_reservatory: 50
     },
     {
       name: 'Controller 05',
-      is_valid: true
+      is_valid: true,
+      water_reservatory: 25
     }
   ]
 }

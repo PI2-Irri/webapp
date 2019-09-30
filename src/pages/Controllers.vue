@@ -21,7 +21,7 @@ q-page.background
           h4 5
         q-card-section.flex.column
           h3 Water Reservatory
-          h4 10L
+          h4 {{ controller.water_reservatory }}
 
   span(v-else) No controllers
 </template>
