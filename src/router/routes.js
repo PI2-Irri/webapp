@@ -3,7 +3,11 @@ const routes = [
     path: '/controllers',
     component: () => import('layouts/TopBar.vue'),
     children: [
-      { path: '', component: () => import('pages/Controllers.vue') }
+      {
+        path: '',
+        name: 'controllers',
+        component: () => import('pages/Controllers.vue')
+      }
     ]
   },
   {
