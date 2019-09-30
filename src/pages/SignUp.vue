@@ -1,6 +1,6 @@
 <template lang="pug">
   q-page.signup_page.flex.column
-    div.background.flex
+    div.background-signup.flex
       img(src="statics/images/ativo2.png")
     div.logo.flex
       img(src="statics/images/ativo5.png")
@@ -141,7 +141,7 @@ export default {
     width 43%
     height: 43%
 
-.background
+.background-signup
   position absolute
   justify-content center
   width 100%
