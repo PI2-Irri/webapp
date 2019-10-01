@@ -9,16 +9,16 @@ const apiEndpoints = {
   CONTROLLERS: 'controllers/'
 }
 
-// async function get (endpoint, params = {}) {
-//   let res
-//   try {
-//     res = await axios.get(ADDR + endpoint, params)
-//   } catch (error) {
-//     if (error.response) res = error.response
-//     else res = null
-//   }
-//   return res
-// }
+async function get (endpoint, params = {}) {
+  let res
+  try {
+    res = await axios.get(ADDR + endpoint, params)
+  } catch (error) {
+    if (error.response) res = error.response
+    else res = null
+  }
+  return res
+}
 
 async function post (endpoint, params = {}) {
   let res
@@ -32,7 +32,7 @@ async function post (endpoint, params = {}) {
 }
 
 async function getControllers (params) {
-  // let res = await get(apiEndpoints.CONTROLLERS, params)
+  let res = await get(apiEndpoints.CONTROLLERS, params)
 
   return [
     {
