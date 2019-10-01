@@ -1,6 +1,6 @@
 <template lang="pug">
   q-page.login_page.flex.column
-    div.background.flex
+    div.background-login.flex
       img(src="statics/images/ativo2.png")
     div.logo.flex
       img(src="statics/images/ativo5.png")
@@ -128,7 +128,7 @@ export default {
 .login_page
   background-color #0aa0a0
 
-.background
+.background-login
   position absolute
   justify-content center
   width 100%

@@ -5,19 +5,20 @@ const ADDR = process.env.API_ADDR || 'http://localhost:4001/'
 const apiEndpoints = {
   ROOT: '/',
   LOGIN: 'login/',
-  SIGNUP: 'signup/'
+  SIGNUP: 'signup/',
+  CONTROLLERS: 'controllers/'
 }
 
-async function get (endpoint, params = {}) {
-  let res
-  try {
-    res = await axios.get(ADDR + endpoint, params)
-  } catch (error) {
-    if (error.response) res = error.response
-    else res = null
-  }
-  return res
-}
+// async function get (endpoint, params = {}) {
+//   let res
+//   try {
+//     res = await axios.get(ADDR + endpoint, params)
+//   } catch (error) {
+//     if (error.response) res = error.response
+//     else res = null
+//   }
+//   return res
+// }
 
 async function post (endpoint, params = {}) {
   let res
@@ -28,6 +29,38 @@ async function post (endpoint, params = {}) {
     else res = null
   }
   return res
+}
+
+async function getControllers (params) {
+  // let res = await get(apiEndpoints.CONTROLLERS, params)
+
+  return [
+    {
+      name: 'Controller 01',
+      is_valid: true,
+      water_reservatory: 10
+    },
+    {
+      name: 'Controller 02',
+      is_valid: true,
+      water_reservatory: 5
+    },
+    {
+      name: 'Controller 03',
+      is_valid: true,
+      water_reservatory: 40
+    },
+    {
+      name: 'Controller 04',
+      is_valid: true,
+      water_reservatory: 50
+    },
+    {
+      name: 'Controller 05',
+      is_valid: true,
+      water_reservatory: 25
+    }
+  ]
 }
 
 async function makeSignUp (params) {
@@ -63,9 +96,7 @@ async function makeLogin (params) {
 }
 
 export {
-  get as apiGet,
-  post as apiPost,
   makeLogin,
   makeSignUp,
-  apiEndpoints
+  getControllers
 }
