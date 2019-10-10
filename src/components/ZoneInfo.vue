@@ -5,12 +5,25 @@ q-dialog(
   @hide="emitHideEvent()"
   @before-show="fetchZoneInfo()"
 )
-  q-card
+  q-card.card-info
     div
       q-card-section
-        p {{ selectedZone.name }}
+        p.title {{ selectedZone.name }}
       q-card-section
-        span Poe a rapadura pra bater
+        div.container-info
+          div.datas
+            span.info-title Temp. Ambiente
+            p.data 13 ºC
+          div.datas
+            span.info-title Precipitação
+            p.data 20%
+        div.container-info
+          div.datas
+            span.info-title Temp. Solo
+            p.data 23 ºC
+          div.datas
+            span.info-title Umid. Solo
+            p.data 23 kPa
     q-inner-loading(:showing="isLoading")
 </template>
 
@@ -58,4 +71,26 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.card-info
+  width 80vh
+  background-color $grey-2
+
+.title
+  font-size 13px
+  color $grey-8
+
+.container-info
+  padding 0 0 20px 10px
+  display flex
+
+.info-title
+  font-size 16px
+
+.datas
+  width 50%
+
+.data
+  font-size 25px
+  font-weight bold
+  color $grey-8
 </style>
