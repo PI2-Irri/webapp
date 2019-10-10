@@ -24,6 +24,19 @@ q-dialog(
           div.datas
             span.info-title Umid. Solo
             p.data 23 kPa
+        div.container-info.column
+          span.info-title Módulos
+          div#battery-status.row
+            div.modules-info
+              q-icon(name="mdi-battery-80" color="grey-8" size="24px")
+              q-icon(name="mdi-checkbox-blank-circle" color="green" size="10px")
+            div.modules-info
+              q-icon(name="mdi-battery-40" color="grey-8" size="24px")
+              q-icon(name="mdi-checkbox-blank-circle" color="green" size="10px")
+            div.modules-info
+              q-icon(name="mdi-battery-10" color="grey-8" size="24px")
+              q-icon(name="mdi-checkbox-blank-circle" color="red" size="10px")
+
     q-inner-loading(:showing="isLoading")
 </template>
 
@@ -85,6 +98,7 @@ export default {
 
 .info-title
   font-size 16px
+  color $grey-8
 
 .datas
   width 50%
@@ -93,4 +107,13 @@ export default {
   font-size 25px
   font-weight bold
   color $grey-8
+
+#battery-status
+  padding-top 10px
+  margin-left -10px
+
+.modules-info
+  margin auto
+  align-items center
+
 </style>
