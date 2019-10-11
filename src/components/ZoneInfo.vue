@@ -13,17 +13,17 @@ q-dialog(
         div.container-info
           div.datas
             span.info-title Temp. Ambiente
-            span.data 13 ºC
+            pan.data 20 ºC
           div.datas
             span.info-title Precipitação
-            span.data 20%
+            span.data 10%
         div.container-info
           div.datas
             span.info-title Temp. Solo
-            span.data 23 ºC
+            span.data 30 ºC
           div.datas
             span.info-title Umid. Solo
-            span.data 23 kPa
+            span.data 50 kPa
         div.container-info.column
           span.info-title Módulos
           div#battery-status.row
@@ -36,7 +36,8 @@ q-dialog(
             div.modules-info
               q-icon(name="mdi-battery-10" color="grey-8" size="24px")
               q-icon(name="mdi-checkbox-blank-circle" color="red" size="10px")
-
+        div.container-info#active-btn
+          q-btn(label="Ativar").active-btn
     q-inner-loading(:showing="isLoading")
 </template>
 
@@ -112,10 +113,19 @@ export default {
 
 #battery-status
   padding-top 10px
-  margin-left -10px
+  /* margin-left -10px */
 
 .modules-info
   margin auto
   align-items center
+
+#active-btn
+  justify-content center
+  padding 0
+
+.active-btn
+  margin-top 20px
+  background-color #10BF70
+  color $grey-2
 
 </style>
