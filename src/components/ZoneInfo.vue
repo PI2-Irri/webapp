@@ -13,17 +13,17 @@ q-dialog(
         div.container-info
           div.datas
             span.info-title Temp. Ambiente
-            p.data 13 ºC
+            span.data 13 ºC
           div.datas
             span.info-title Precipitação
-            p.data 20%
+            span.data 20%
         div.container-info
           div.datas
             span.info-title Temp. Solo
-            p.data 23 ºC
+            span.data 23 ºC
           div.datas
             span.info-title Umid. Solo
-            p.data 23 kPa
+            span.data 23 kPa
         div.container-info.column
           span.info-title Módulos
           div#battery-status.row
@@ -102,6 +102,8 @@ export default {
 
 .datas
   width 50%
+  display flex
+  flex-direction column
 
 .data
   font-size 25px
