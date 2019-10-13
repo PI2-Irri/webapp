@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - develop
       - ci-cd
   pull_request:
 
@@ -22,6 +23,7 @@ jobs:
           yarn install
           npx quasar build
       - uses: actions/upload-artifact@master
+        if: github.event_name == 'push' && github.ref != 'refs/heads/ci-cd'
         with:
           name: dist-folder
           path: dist
@@ -29,7 +31,7 @@ jobs:
   build-image:
     runs-on: ubuntu-latest
     needs: build-quasar
-    if: github.ref == 'refs/heads/master'
+    if: github.event_name == 'push'
     steps:
       - uses: actions/checkout@master
       - uses: actions/download-artifact@master
