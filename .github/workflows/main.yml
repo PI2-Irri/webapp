@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+      - ci-cd
+  pull_request:
 
 jobs:
   build:
