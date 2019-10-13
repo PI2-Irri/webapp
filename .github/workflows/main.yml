@@ -26,6 +26,10 @@ jobs:
         with:
           name: dist-folder
           path: dist/spa
+      - uses: actions/upload-artifact@master
+        with:
+          name: prod-dockerfile
+          path: Dockerfile.prod
 
   build-image:
     runs-on: ubuntu-latest
@@ -36,6 +40,10 @@ jobs:
         with:
           name: dist-folder
           path: dist
+      - uses: actions/download-artifact@master
+        with:
+          name: prod-dockerfile
+          path: Dockerfile.prod
       - uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: irripi2/irrifront
