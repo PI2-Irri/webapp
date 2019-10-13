@@ -11,8 +11,7 @@ jobs:
   build-quasar:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
+      - uses: actions/checkout@master
       - name: Setup NodeJS
         uses: actions/setup-node@master
         with:
@@ -25,25 +24,18 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: dist-folder
-          path: dist/spa
-      - uses: actions/upload-artifact@master
-        with:
-          name: prod-dockerfile
-          path: Dockerfile.prod
+          path: dist
 
   build-image:
     runs-on: ubuntu-latest
     needs: build-quasar
     if: github.ref == 'refs/heads/master'
     steps:
+      - uses: actions/checkout@master
       - uses: actions/download-artifact@master
         with:
           name: dist-folder
           path: dist
-      - uses: actions/download-artifact@master
-        with:
-          name: prod-dockerfile
-          path: Dockerfile.prod
       - uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: irripi2/irrifront
