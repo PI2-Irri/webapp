@@ -5,7 +5,6 @@ on:
     branches:
       - master
       - develop
-      - ci-cd
   pull_request:
 
 jobs:
@@ -23,7 +22,7 @@ jobs:
           yarn install
           npx quasar build
       - uses: actions/upload-artifact@master
-        if: github.event_name == 'push' && github.ref != 'refs/heads/ci-cd'
+        if: github.event_name == 'push'
         with:
           name: dist-folder
           path: dist
