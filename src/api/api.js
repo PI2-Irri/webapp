@@ -38,27 +38,114 @@ async function getControllers (params) {
     {
       name: 'Controller 01',
       is_valid: true,
+      zones: [
+        {
+          name: 'zona do caralho',
+          groundTemp: 10,
+          groundUmid: 19,
+          ambTemp: 100,
+          precipitation: 10
+        },
+        {
+          name: 'zona do caralho 2',
+          groundTemp: 11,
+          groundUmid: 20,
+          ambTemp: 101,
+          precipitation: 11
+        },
+        {
+          name: 'zona do caralho 3',
+          groundTemp: 12,
+          groundUmid: 29,
+          ambTemp: 200,
+          precipitation: 20
+        },
+        {
+          name: 'zona do caralho 4',
+          groundTemp: 30,
+          groundUmid: 39,
+          ambTemp: 300,
+          precipitation: 30
+        }
+      ],
       water_reservatory: 10
     },
     {
       name: 'Controller 02',
       is_valid: true,
-      water_reservatory: 5
+      water_reservatory: 5,
+      zones: [
+        {
+          name: 'zona do caralho',
+          groundTemp: 10,
+          groundUmid: 19,
+          ambTemp: 100,
+          precipitation: 10
+        },
+        {
+          name: 'zona do caralho 2',
+          groundTemp: 11,
+          groundUmid: 20,
+          ambTemp: 101,
+          precipitation: 11
+        },
+        {
+          name: 'zona do caralho 3',
+          groundTemp: 12,
+          groundUmid: 29,
+          ambTemp: 200,
+          precipitation: 20
+        },
+        {
+          name: 'zona do caralho 4',
+          groundTemp: 30,
+          groundUmid: 39,
+          ambTemp: 300,
+          precipitation: 30
+        }
+      ]
     },
     {
       name: 'Controller 03',
       is_valid: true,
-      water_reservatory: 40
+      water_reservatory: 40,
+      zones: [
+        {
+          name: 'zona do caralho',
+          groundTemp: 10,
+          groundUmid: 19,
+          ambTemp: 100,
+          precipitation: 10
+        },
+        {
+          name: 'zona do caralho 2',
+          groundTemp: 11,
+          groundUmid: 20,
+          ambTemp: 101,
+          precipitation: 11
+        }
+      ]
     },
     {
       name: 'Controller 04',
       is_valid: true,
-      water_reservatory: 50
-    },
-    {
-      name: 'Controller 05',
-      is_valid: true,
-      water_reservatory: 25
+      water_reservatory: 50,
+      zones: [
+        {
+          name: 'zona do caralho',
+          groundTemp: 10,
+          groundUmid: 19,
+          ambTemp: 100,
+          precipitation: 10
+        },
+        {
+          name: 'zona do caralho 2',
+          groundTemp: 11,
+          groundUmid: 20,
+          ambTemp: 101,
+          precipitation: 11
+        }
+      ]
     }
   ]
 }
