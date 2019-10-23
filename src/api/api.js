@@ -9,16 +9,16 @@ const apiEndpoints = {
   CONTROLLERS: 'controllers/'
 }
 
-// async function get (endpoint, params = {}) {
-//   let res
-//   try {
-//     res = await axios.get(ADDR + endpoint, params)
-//   } catch (error) {
-//     if (error.response) res = error.response
-//     else res = null
-//   }
-//   return res
-// }
+async function get (endpoint, params = {}) {
+  let res
+  try {
+    res = await axios.get(ADDR + endpoint, params)
+  } catch (error) {
+    if (error.response) res = error.response
+    else res = null
+  }
+  return res
+}
 
 async function post (endpoint, params = {}) {
   let res
@@ -32,35 +32,10 @@ async function post (endpoint, params = {}) {
 }
 
 async function getControllers (params) {
-  // let res = await get(apiEndpoints.CONTROLLERS, params)
+  let header = { 'headers': { 'Authorization': 'Token ' + params.token } }
+  let res = await get(apiEndpoints.CONTROLLERS, header)
 
-  return [
-    {
-      name: 'Controller 01',
-      is_valid: true,
-      water_reservatory: 10
-    },
-    {
-      name: 'Controller 02',
-      is_valid: true,
-      water_reservatory: 5
-    },
-    {
-      name: 'Controller 03',
-      is_valid: true,
-      water_reservatory: 40
-    },
-    {
-      name: 'Controller 04',
-      is_valid: true,
-      water_reservatory: 50
-    },
-    {
-      name: 'Controller 05',
-      is_valid: true,
-      water_reservatory: 25
-    }
-  ]
+  return res
 }
 
 async function makeSignUp (params) {
@@ -86,7 +61,6 @@ async function makeLogin (params) {
   }
 
   if (res.status !== 200 || res.data.error !== undefined) return null
-
   let user = {
     token: res.data.token,
     ...res.data.user

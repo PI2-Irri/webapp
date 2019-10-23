@@ -1,8 +1,8 @@
 {
-  "name": "webapp",
+  "name": "Irri",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "webapp app",
+  "description": "Automated irrigation",
+  "productName": "Irri",
   "cordovaId": "org.cordova.quasar.app",
   "author": "",
   "private": true,

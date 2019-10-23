@@ -1,33 +1,26 @@
 <template lang="pug">
 q-page.background
-  q-carousel(
-    infinite
-    animated
-    swipeable
-    navigation
-    v-if="controllers && controllers.length"
-    v-model="controllers[0].name"
-  )
-    q-carousel-slide(
-      v-for="controller in controllers"
+  div.controller-container.flex.column
+    span#title Controllers
+    q-card(
+      v-for="controller in controllers.data"
       :key="controller.name"
-      :name="controller.name"
-    )
-      q-card.controller-infos
-        q-card-section
-          h2 {{ controller.name }}
-        q-card-section.flex.column
-          h3 Zones
-          h4 5
-        q-card-section.flex.column
-          h3 Water Reservatory
-          h4 {{ controller.water_reservatory }}
+    ).controller-infos
+      span.controller-name {{ controller.name }}
+      div.flex.row
+        div.flex.column.datas
+          span.data-type Zones
+          span.data 10
+        div.flex.column.datas
+          span.data-type Water Reservatory
+          span.data 20
+    q-btn(round color="secondary" icon="mdi-plus" size="20px").teste
 
-  span(v-else) No controllers
 </template>
 
 <script>
 import { getControllers } from '../api/api'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'ControllersPage',
@@ -37,30 +30,51 @@ export default {
       controllers: undefined
     }
   },
+  computed: {
+    ...mapGetters('users', ['currentUser'])
+  },
   async created () {
-    this.controllers = await getControllers()
+    this.controllers = await getControllers(this.currentUser)
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-.controller-infos
-  padding 15px
-  padding-top 0
+.teste
+  position absolute
+  right 5vw
+  padding 10px
+  // TODO: STOP ROLLING DOWN
+  bottom 8vh
 
-  h2
-    margin 0
-    font-weight 400
-    font-size 25px
-    color #7f7f7f
-  h3
-    margin 0
-    font-weight 400
-    font-size 20px
-    color #7f7f7f
-  h4
-    margin 0
-    font-weight 500
-    font-size 35px
-    color #7f7f7f
+.controller-container
+  width 90vw
+  margin auto
+  padding-top 15px
+  justify-content center
+
+.controller-infos
+  margin-bottom 10px
+  padding 10px 0
+
+.controller-name
+  font-size 20px
+  color $grey-8
+  padding-left 15px
+
+.data-type
+  color $grey-8
+  font-size 16px
+
+.datas
+  padding-left 25px
+
+.data
+  color $grey-9
+  font-weight bold
+  font-size 20px
+
+#title
+  color $grey-9
+  font-size 26px
 </style>

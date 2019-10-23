@@ -1,3 +1,3 @@
 export function setCurrentUser (state, user) {
-  state.setCurrentUser = user
+  state.currentUser = user
 }
