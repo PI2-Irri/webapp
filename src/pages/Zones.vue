@@ -41,7 +41,7 @@ export default {
   methods: {
     getControllerName () {
       // gets the name from a prop controllerInfo
-      return 'SouFoda'
+      return 'FGA'
     },
     selectZone (zone) {
       this.selectedZone = zone
@@ -55,19 +55,19 @@ export default {
       // controller selected is a prop controllerInfo
       return [
         {
-          name: 'Zone for the rabbits',
+          name: 'Graminha',
           id: 1
         },
         {
-          name: 'Kamon',
+          name: 'RU',
           id: 2
         },
         {
-          name: 'Wonderland',
+          name: 'UAC',
           id: 3
         },
         {
-          name: 'Come chilled bro',
+          name: 'UED',
           id: 4
         }
       ]
