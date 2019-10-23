@@ -28,6 +28,11 @@ const routes = [
         path: '/login',
         name: 'login',
         component: () => import('pages/Login.vue')
+      },
+      {
+        path: '/zones',
+        name: 'zones',
+        component: () => import('pages/Zones.vue')
       }
     ]
   }

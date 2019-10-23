@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const ADDR = process.env.API_ADDR || 'http://192.168.15.13:4001/'
+const ADDR = process.env.API_ADDR || 'http://localhost:4001/'
 
 const apiEndpoints = {
   ROOT: '/',
