@@ -18,7 +18,7 @@ q-dialog(
         placeholder="Controller token"
         color="#0A5959"
         bg-color="$grey-2"
-        v-model="controllerName"
+        v-model="token"
         dense filled
         ).input
       div.buttons.flex.column
