@@ -20,15 +20,32 @@ async function get (endpoint, params = {}) {
   return res
 }
 
-async function post (endpoint, params = {}) {
+async function post (endpoint, params = {}, header = {}) {
   let res
+
   try {
-    res = await axios.post(ADDR + endpoint, params)
+    res = await axios.post(ADDR + endpoint, params, header)
   } catch (error) {
     if (error.response) res = error.response
     else res = null
   }
   return res
+}
+
+async function connectControllers (params, owner) {
+  let header = { 'headers': { 'Authorization': 'Token ' + owner } }
+
+  let res = await post(apiEndpoints.CONTROLLERS, params, header)
+
+  if (res == null) {
+    res = { error: 'Null response' }
+  }
+
+  if (res.status !== 200 || res.data.error !== undefined) {
+    return res.data
+  }
+
+  return null
 }
 
 async function getControllers (params) {
@@ -72,5 +89,6 @@ async function makeLogin (params) {
 export {
   makeLogin,
   makeSignUp,
-  getControllers
+  getControllers,
+  connectControllers
 }
