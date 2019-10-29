@@ -11,14 +11,14 @@ q-dialog(
         placeholder="Controller name"
         color="#0A5959"
         bg-color="$grey-2"
-        v-model="controllerName"
+        v-model="infos.name"
         dense filled
         ).input
       q-input(
         placeholder="Controller token"
         color="#0A5959"
         bg-color="$grey-2"
-        v-model="token"
+        v-model="infos.token"
         dense filled
         ).input
       div.buttons.flex.column
@@ -33,6 +33,9 @@ q-dialog(
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { connectControllers } from '../api/api'
+
 export default {
   name: 'RegisterControllerComponent',
   props: {
@@ -43,8 +46,12 @@ export default {
   },
   data () {
     return {
-      controllerName: '',
-      token: ''
+      infos: {
+        name: '',
+        token: '',
+        is_active: true
+      },
+      owner: ''
     }
   },
   methods: {
@@ -52,8 +59,17 @@ export default {
       this.$emit('hide-dialog')
     },
     async registerController () {
-      return true
+      this.owner = this.currentUser.token
+
+      await connectControllers({
+        ...this.infos
+      }, this.owner)
+
+      this.emitHideEvent()
     }
+  },
+  computed: {
+    ...mapGetters('users', ['currentUser'])
   }
 }
 </script>
