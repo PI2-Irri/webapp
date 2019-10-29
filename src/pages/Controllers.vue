@@ -3,23 +3,23 @@ q-page.background
   div.controller-container.flex.column
     span#title Controllers
     q-card(
-      v-for="controller in controllers.data"
+      v-for="controller in controllers"
       :key="controller.name"
     ).controller-infos
-      span.controller-name {{ controller.name }}
+      span.controller-name {{ controller.controller }}
       div.flex.row
         div.flex.column.datas
           span.data-type Zones
-          span.data 10
+          span.data {{ controller.zones.length }}
         div.flex.column.datas
           span.data-type Water Reservatory
-          span.data 20
+          span.data {{ controller.reservoir_level }}
     q-btn(round color="secondary" icon="mdi-plus" size="20px").teste
 
 </template>
 
 <script>
-import { getControllers } from '../api/api'
+import { getControllersInfo } from '../api/api'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -34,7 +34,7 @@ export default {
     ...mapGetters('users', ['currentUser'])
   },
   async created () {
-    this.controllers = await getControllers(this.currentUser)
+    this.controllers = await getControllersInfo(this.currentUser)
   }
 }
 </script>

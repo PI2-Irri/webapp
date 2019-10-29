@@ -6,7 +6,7 @@ const apiEndpoints = {
   ROOT: '/',
   LOGIN: 'login/',
   SIGNUP: 'signup/',
-  CONTROLLERS: 'controllers/'
+  CONTROLLERS_INFO: 'controllers_info/'
 }
 
 async function get (endpoint, params = {}) {
@@ -31,11 +31,11 @@ async function post (endpoint, params = {}) {
   return res
 }
 
-async function getControllers (params) {
+async function getControllersInfo (params) {
   let header = { 'headers': { 'Authorization': 'Token ' + params.token } }
-  let res = await get(apiEndpoints.CONTROLLERS, header)
+  let res = await get(apiEndpoints.CONTROLLERS_INFO, header)
 
-  return res
+  return res.data
 }
 
 async function makeSignUp (params) {
@@ -72,5 +72,5 @@ async function makeLogin (params) {
 export {
   makeLogin,
   makeSignUp,
-  getControllers
+  getControllersInfo
 }
