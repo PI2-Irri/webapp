@@ -18,7 +18,7 @@ q-page.background
           round color="secondary"
           icon="mdi-plus"
           size="20px"
-          @click.native="registerController()").teste
+          @click.native="registerController()").add-controller
     register-controller(
         :visibility="registerVisibility"
         @hide-dialog="changeControllerVisibility(false)"
@@ -60,11 +60,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.teste
+.add-controller
   position absolute
   right 5vw
   padding 10px
-  // TODO: STOP ROLLING DOWN
   bottom 8vh
 
 .controller-container

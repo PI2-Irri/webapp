@@ -6,7 +6,8 @@ const apiEndpoints = {
   ROOT: '/',
   LOGIN: 'login/',
   SIGNUP: 'signup/',
-  CONTROLLERS_INFO: 'controllers_info/'
+  CONTROLLERS_INFO: 'controllers_info/',
+  CONTROLLERS: 'controllers/'
 }
 
 async function get (endpoint, params = {}) {
