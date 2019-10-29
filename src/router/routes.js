@@ -7,6 +7,11 @@ const routes = [
         path: '',
         name: 'controllers',
         component: () => import('pages/Controllers.vue')
+      },
+      {
+        path: '/register',
+        name: 'registerController',
+        component: () => import('pages/RegisterController.vue')
       }
     ]
   },

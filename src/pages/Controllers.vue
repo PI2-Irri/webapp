@@ -14,20 +14,32 @@ q-page.background
         div.flex.column.datas
           span.data-type Water Reservatory
           span.data {{ controller.reservoir_level }}
-    q-btn(round color="secondary" icon="mdi-plus" size="20px").teste
-
+    q-btn(
+          round color="secondary"
+          icon="mdi-plus"
+          size="20px"
+          @click.native="registerController()").add-controller
+    register-controller(
+        :visibility="registerVisibility"
+        @hide-dialog="changeControllerVisibility(false)"
+      )
 </template>
 
 <script>
 import { getControllersInfo } from '../api/api'
 import { mapGetters } from 'vuex'
+import RegisterController from 'components/RegisterController.vue'
 
 export default {
   name: 'ControllersPage',
+  components: {
+    'register-controller': RegisterController
+  },
   data () {
     return {
       currentSlide: '1',
-      controllers: undefined
+      controllers: undefined,
+      registerVisibility: false
     }
   },
   computed: {
@@ -35,16 +47,23 @@ export default {
   },
   async created () {
     this.controllers = await getControllersInfo(this.currentUser)
+  },
+  methods: {
+    async registerController () {
+      this.changeControllerVisibility(true)
+    },
+    async changeControllerVisibility (value) {
+      this.registerVisibility = value
+    }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-.teste
+.add-controller
   position absolute
   right 5vw
   padding 10px
-  // TODO: STOP ROLLING DOWN
   bottom 8vh
 
 .controller-container
