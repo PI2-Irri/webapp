@@ -20,6 +20,7 @@
 <script>
 import ZoneItem from 'components/ZoneItem.vue'
 import ZoneInfo from 'components/ZoneInfo.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'ZonesPage',
@@ -38,10 +39,12 @@ export default {
     // TODO: not sure this should be here, should it be an sync func?
     this.zones = this.fetchZones()
   },
+  computed: {
+    ...mapGetters('controllers', ['selectedController'])
+  },
   methods: {
     getControllerName () {
-      // gets the name from a prop controllerInfo
-      return 'FGA'
+      return this.selectedController.controller
     },
     selectZone (zone) {
       this.selectedZone = zone

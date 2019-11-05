@@ -12,6 +12,11 @@ const routes = [
         path: '/register',
         name: 'registerController',
         component: () => import('pages/RegisterController.vue')
+      },
+      {
+        path: '/zones',
+        name: 'zones',
+        component: () => import('pages/Zones.vue')
       }
     ]
   },
@@ -33,11 +38,6 @@ const routes = [
         path: '/login',
         name: 'login',
         component: () => import('pages/Login.vue')
-      },
-      {
-        path: '/zones',
-        name: 'zones',
-        component: () => import('pages/Zones.vue')
       }
     ]
   }
