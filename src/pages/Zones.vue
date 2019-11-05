@@ -54,26 +54,7 @@ export default {
       this.infosVisibility = value
     },
     fetchZones () {
-      // gets all zones (id, name) tuple from a given controller
-      // controller selected is a prop controllerInfo
-      return [
-        {
-          name: 'Graminha',
-          id: 1
-        },
-        {
-          name: 'RU',
-          id: 2
-        },
-        {
-          name: 'UAC',
-          id: 3
-        },
-        {
-          name: 'UED',
-          id: 4
-        }
-      ]
+      return this.selectedController.zones
     }
   }
 }
