@@ -7,7 +7,8 @@ const apiEndpoints = {
   LOGIN: 'login/',
   SIGNUP: 'signup/',
   CONTROLLERS_INFO: 'controllers_info/',
-  CONTROLLERS: 'controllers/'
+  CONTROLLERS: 'controllers/',
+  ZONES: 'zones/'
 }
 
 async function get (endpoint, params = {}) {
@@ -37,6 +38,21 @@ async function connectControllers (params, owner) {
   let header = { 'headers': { 'Authorization': 'Token ' + owner } }
 
   let res = await post(apiEndpoints.CONTROLLERS, params, header)
+
+  if (res == null) {
+    res = { error: 'Null response' }
+  }
+
+  if (res.status !== 200 || res.data.error !== undefined) {
+    return res.data
+  }
+
+  return null
+}
+
+async function createZone (params, owner) {
+  let header = { 'headers': { 'Authorization': 'Token ' + owner } }
+  let res = await post(apiEndpoints.ZONES, params, header)
 
   if (res == null) {
     res = { error: 'Null response' }
@@ -91,5 +107,6 @@ export {
   makeLogin,
   makeSignUp,
   connectControllers,
-  getControllersInfo
+  getControllersInfo,
+  createZone
 }

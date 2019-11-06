@@ -14,25 +14,37 @@
         :selectedZone="selectedZone"
         @hide-dialog="changeInfosVisibility(false)"
       )
+      q-btn(
+            round color="secondary"
+            icon="mdi-plus"
+            size="20px"
+            @click.native="registerZone()").add-zone
+      register-zone(
+          :visibility="registerVisibility"
+          @hide-dialog="changeZoneComponentVisibility(false)"
+        )
 
 </template>
 
 <script>
 import ZoneItem from 'components/ZoneItem.vue'
 import ZoneInfo from 'components/ZoneInfo.vue'
+import RegisterZone from 'components/RegisterZone.vue'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'ZonesPage',
   components: {
     'zone-info': ZoneInfo,
-    'zone-item': ZoneItem
+    'zone-item': ZoneItem,
+    'register-zone': RegisterZone
   },
   data () {
     return {
       infosVisibility: false,
       selectedZone: {},
-      zones: []
+      zones: [],
+      registerVisibility: false
     }
   },
   mounted () {
@@ -55,6 +67,12 @@ export default {
     },
     fetchZones () {
       return this.selectedController.zones
+    },
+    async registerZone () {
+      this.changeZoneComponentVisibility(true)
+    },
+    async changeZoneComponentVisibility (value) {
+      this.registerVisibility = value
     }
   }
 }
@@ -81,4 +99,10 @@ export default {
   max-height 60vh
   overflow auto
   background-color $grey-1
+
+.add-zone
+  position absolute
+  bottom 8vh
+  right 5vw
+  padding 10px
 </style>
