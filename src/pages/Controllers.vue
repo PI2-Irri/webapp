@@ -5,6 +5,7 @@ q-page.background
     q-card(
       v-for="controller in controllers"
       :key="controller.name"
+      @click.native="selectController(controller)"
     ).controller-infos
       span.controller-name {{ controller.controller }}
       div.flex.row
@@ -27,7 +28,7 @@ q-page.background
 
 <script>
 import { getControllersInfo } from '../api/api'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import RegisterController from 'components/RegisterController.vue'
 
 export default {
@@ -49,11 +50,16 @@ export default {
     this.controllers = await getControllersInfo(this.currentUser)
   },
   methods: {
+    ...mapActions('controllers', ['setSelectedController']),
     async registerController () {
       this.changeControllerVisibility(true)
     },
     async changeControllerVisibility (value) {
       this.registerVisibility = value
+    },
+    selectController (controller) {
+      this.setSelectedController(controller)
+      this.$router.push({ name: 'zones' })
     }
   }
 }
