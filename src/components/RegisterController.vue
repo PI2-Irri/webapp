@@ -56,6 +56,8 @@ export default {
   },
   methods: {
     async emitHideEvent () {
+      this.infos.name = ''
+      this.infos.token = ''
       this.$emit('hide-dialog')
     },
     async registerController () {
