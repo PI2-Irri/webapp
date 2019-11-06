@@ -31,6 +31,9 @@
             ) Cancel</template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { createZone } from '../api/api'
+
 export default {
   name: 'RegisterZones',
   props: {
@@ -44,20 +47,31 @@ export default {
       infos: {
         name: '',
         zip: '',
-        controller: '',
-        latitude: '',
-        longitude: ''
+        latitude: 15,
+        longitude: 10,
+        controller: ''
       }
     }
   },
   methods: {
     async registerZone () {
-      console.log('Eai')
+      this.setZoneArea()
+      this.infos.controller = this.selectedController.token
+      await createZone({ ...this.infos }, this.currentUser.token)
       this.emitHideEvent()
     },
+    async setZoneArea () {
+      // TODO: set latitude and longitude
+    },
     async emitHideEvent () {
+      this.infos.name = ''
+      this.infos.zip = ''
       this.$emit('hide-dialog')
     }
+  },
+  computed: {
+    ...mapGetters('controllers', ['selectedController']),
+    ...mapGetters('users', ['currentUser'])
   }
 }
 </script>
