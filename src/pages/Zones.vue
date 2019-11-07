@@ -31,6 +31,7 @@ import ZoneItem from 'components/ZoneItem.vue'
 import ZoneInfo from 'components/ZoneInfo.vue'
 import RegisterZone from 'components/RegisterZone.vue'
 import { mapGetters } from 'vuex'
+import { getZonesInfo } from '../api/api'
 
 export default {
   name: 'ZonesPage',
@@ -44,6 +45,9 @@ export default {
       infosVisibility: false,
       selectedZone: {},
       zones: [],
+      infos: {
+        token: ''
+      },
       registerVisibility: false
     }
   },
@@ -52,14 +56,19 @@ export default {
     this.zones = this.fetchZones()
   },
   computed: {
-    ...mapGetters('controllers', ['selectedController'])
+    ...mapGetters('controllers', ['selectedController']),
+    ...mapGetters('users', ['currentUser'])
   },
   methods: {
     getControllerName () {
       return this.selectedController.controller
     },
-    selectZone (zone) {
-      this.selectedZone = zone
+    async selectZone (zone) {
+      this.infos.token = this.selectedController.token
+      this.selectedZone = await getZonesInfo(
+        { ...this.infos },
+        this.currentUser.token
+      )
       this.changeInfosVisibility(true)
     },
     async changeInfosVisibility (value) {
