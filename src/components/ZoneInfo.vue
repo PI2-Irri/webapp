@@ -3,6 +3,7 @@ q-dialog(
   :value="visibility"
   minimized
   @hide="emitHideEvent()"
+  @before-show="getStatusModules()"
 )
   q-card.card-info
     div
@@ -26,15 +27,12 @@ q-dialog(
         div.container-info.column
           span.info-title Módulos
           div#battery-status.row
-            div.modules-info
+            div.modules-info(v-for="status_module in status_modules")
               q-icon(name="mdi-battery-80" color="grey-8" size="24px")
-              q-icon(name="mdi-checkbox-blank-circle" color="green" size="10px")
-            div.modules-info
-              q-icon(name="mdi-battery-40" color="grey-8" size="24px")
-              q-icon(name="mdi-checkbox-blank-circle" color="green" size="10px")
-            div.modules-info
-              q-icon(name="mdi-battery-10" color="grey-8" size="24px")
-              q-icon(name="mdi-checkbox-blank-circle" color="red" size="10px")
+              //q-icon(v-else-if="" name="mdi-battery-40" color="grey-8" size="24px")
+              //q-icon(v-else name="mdi-battery-10" color="grey-8" size="24px")
+              q-icon(v-if="status_module === 1" name="mdi-checkbox-blank-circle" color="green" size="10px")
+              q-icon(v-else name="mdi-checkbox-blank-circle" color="red" size="10px")
         div.container-info#active-btn
           q-btn(label="Ativar").active-btn
     q-inner-loading(:showing="isLoading")
@@ -56,13 +54,16 @@ export default {
   data () {
     return {
       isLoading: false,
-      zoneInfo: {}
+      status_modules: undefined
     }
   },
   methods: {
     async emitHideEvent () {
       this.isLoading = false
       this.$emit('hide-dialog')
+    },
+    async getStatusModules () {
+      this.status_modules = this.selectedZone[0].status_modules
     }
   }
 }
