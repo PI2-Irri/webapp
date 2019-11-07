@@ -8,17 +8,19 @@ const apiEndpoints = {
   SIGNUP: 'signup/',
   CONTROLLERS_INFO: 'controllers_info/',
   CONTROLLERS: 'controllers/',
-  ZONES: 'zones/'
+  ZONES: 'zones/',
+  MEASUREMENTS: 'zones_info/'
 }
 
-async function get (endpoint, params = {}) {
+async function get (endpoint, param = {}, header = {}) {
   let res
   try {
-    res = await axios.get(ADDR + endpoint, params)
+    res = await axios.get(ADDR + endpoint, param, header)
   } catch (error) {
     if (error.response) res = error.response
     else res = null
   }
+
   return res
 }
 
@@ -100,10 +102,18 @@ async function makeLogin (params) {
   return user
 }
 
+async function getZonesInfo (param, owner) {
+  const res = await get(apiEndpoints.MEASUREMENTS, { params: param }, generateHeader(owner))
+    .then((res) => res)
+
+  return res.data
+}
+
 export {
   makeLogin,
   makeSignUp,
   connectControllers,
   getControllersInfo,
-  createZone
+  createZone,
+  getZonesInfo
 }
