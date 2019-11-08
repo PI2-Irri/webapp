@@ -46,7 +46,8 @@ export default {
       selectedZone: {},
       zones: [],
       infos: {
-        token: ''
+        token: '',
+        zone_name: ''
       },
       registerVisibility: false
     }
@@ -65,11 +66,13 @@ export default {
     },
     async selectZone (zone) {
       this.infos.token = this.selectedController.token
+      this.infos.zone_name = zone.name
       this.selectedZone = await getZonesInfo(
         { ...this.infos },
         this.currentUser.token
       )
       this.changeInfosVisibility(true)
+      console.log(this.selectedZone)
     },
     async changeInfosVisibility (value) {
       this.infosVisibility = value

@@ -8,7 +8,7 @@ q-dialog(
   q-card.card-info
     div
       q-card-section
-        p.title {{ selectedZone.name }}
+        p.title {{ selectedZone[0].name }}
       q-card-section
         div.container-info
           div.datas
