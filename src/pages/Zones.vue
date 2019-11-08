@@ -12,6 +12,7 @@
       zone-info(
         :visibility="infosVisibility"
         :selectedZone="selectedZone"
+        :name="selectedZone[0].name"
         @hide-dialog="changeInfosVisibility(false)"
       )
       q-btn(

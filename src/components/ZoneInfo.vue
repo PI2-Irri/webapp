@@ -49,6 +49,10 @@ export default {
     selectedZone: {
       type: Array,
       required: true
+    },
+    name: {
+      type: String,
+      required: true
     }
   },
   data () {
