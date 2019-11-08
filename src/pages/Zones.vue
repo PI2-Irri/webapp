@@ -44,7 +44,7 @@ export default {
   data () {
     return {
       infosVisibility: false,
-      selectedZone: {},
+      selectedZone: [{ 'name': '' }],
       zones: [],
       infos: {
         token: '',
@@ -54,7 +54,10 @@ export default {
     }
   },
   mounted () {
-    // TODO: not sure this should be here, should it be an sync func?
+    if (!this.currentUser) {
+      this.$router.push({ 'name': 'login' })
+    }
+
     this.zones = this.fetchZones()
   },
   computed: {
@@ -73,7 +76,6 @@ export default {
         this.currentUser.token
       )
       this.changeInfosVisibility(true)
-      console.log(this.selectedZone)
     },
     async changeInfosVisibility (value) {
       this.infosVisibility = value
