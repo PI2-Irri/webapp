@@ -1,5 +1,5 @@
 <template lang="pug">
-  q-page(style="background-color: #EFEFEF")
+  q-page.zones-container
     div.flex.zones
       span.zones_controller-name {{ getControllerName() }}
       div.zones_menu
@@ -97,8 +97,12 @@ export default {
 .zone-item + .zone-item
   border-top 4px solid #efefef
 
-.zones
+.zones-container
   width 100%
+  background-color #EFEFEF
+
+.zones
+  padding-top 50px
   height 100%
   justify-content center
 
