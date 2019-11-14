@@ -17,6 +17,10 @@ export default {
   background-color #0a5959
   width 100%
   height 50px
+  top 0
+  overflow hidden
+  position fixed
+  z-index 2
   justify-content center
   align-content center
   img

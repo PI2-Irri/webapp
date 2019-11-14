@@ -1,27 +1,23 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPersist from 'vuex-persist'
 
 import users from './users'
 import controllers from './controllers'
 
-// import example from './module-example'
-
 Vue.use(Vuex)
 
-/*
- * If not building with SSR mode, you can
- * directly export the Store instantiation
- */
+export default function () {
+  const vuexPersist = new VuexPersist({
+    storage: window.localStorage
+  })
 
-export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       users,
       controllers
     },
-
-    // enable strict mode (adds overhead!)
-    // for dev mode only
+    plugins: [vuexPersist.plugin],
     strict: process.env.DEV
   })
 

@@ -19,7 +19,7 @@ q-page.background
           round color="secondary"
           icon="mdi-plus"
           size="20px"
-          @click.native="registerController()").add-controller
+          @click.native="registerController()").add-component
     register-controller(
         :visibility="registerVisibility"
         @hide-dialog="changeControllerVisibility(false)"
@@ -66,11 +66,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.add-controller
-  position absolute
-  right 5vw
-  padding 10px
-  bottom 8vh
+.background
+  width 100%
+  padding-top 50px
 
 .controller-container
   width 90vw

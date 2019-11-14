@@ -1,5 +1,10 @@
 <template lang="pug">
-  q-page(style="background-color: #EFEFEF")
+  q-page.zones-container
+    q-btn(
+        flat
+        @click.native="backToControllers()"
+      ).return-btn
+      q-icon(name="mdi-arrow-left" size="25px")
     div.flex.zones
       span.zones_controller-name {{ getControllerName() }}
       div.zones_menu
@@ -12,13 +17,14 @@
       zone-info(
         :visibility="infosVisibility"
         :selectedZone="selectedZone"
+        :name="selectedZone[0].name"
         @hide-dialog="changeInfosVisibility(false)"
       )
       q-btn(
             round color="secondary"
             icon="mdi-plus"
             size="20px"
-            @click.native="registerZone()").add-zone
+            @click.native="registerZone()").add-component
       register-zone(
           :visibility="registerVisibility"
           @hide-dialog="changeZoneComponentVisibility(false)"
@@ -31,6 +37,7 @@ import ZoneItem from 'components/ZoneItem.vue'
 import ZoneInfo from 'components/ZoneInfo.vue'
 import RegisterZone from 'components/RegisterZone.vue'
 import { mapGetters } from 'vuex'
+import { getZonesInfo } from '../api/api'
 
 export default {
   name: 'ZonesPage',
@@ -42,24 +49,37 @@ export default {
   data () {
     return {
       infosVisibility: false,
-      selectedZone: {},
+      selectedZone: [{ 'name': '' }],
       zones: [],
+      infos: {
+        token: '',
+        zone_name: ''
+      },
       registerVisibility: false
     }
   },
   mounted () {
-    // TODO: not sure this should be here, should it be an sync func?
+    if (!this.currentUser) {
+      this.$router.push({ 'name': 'login' })
+    }
+
     this.zones = this.fetchZones()
   },
   computed: {
-    ...mapGetters('controllers', ['selectedController'])
+    ...mapGetters('controllers', ['selectedController']),
+    ...mapGetters('users', ['currentUser'])
   },
   methods: {
     getControllerName () {
       return this.selectedController.controller
     },
-    selectZone (zone) {
-      this.selectedZone = zone
+    async selectZone (zone) {
+      this.infos.token = this.selectedController.token
+      this.infos.zone_name = zone.name
+      this.selectedZone = await getZonesInfo(
+        { ...this.infos },
+        this.currentUser.token
+      )
       this.changeInfosVisibility(true)
     },
     async changeInfosVisibility (value) {
@@ -73,17 +93,32 @@ export default {
     },
     async changeZoneComponentVisibility (value) {
       this.registerVisibility = value
+    },
+    backToControllers () {
+      this.$router.push({ 'name': 'controllers' })
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
+.return-btn
+  color $grey-8
+  padding-top 60px
+  border none
+  background none
+  padding-left 15px
+  &:focus
+    background-color black
+
 .zone-item + .zone-item
   border-top 4px solid #efefef
 
-.zones
+.zones-container
   width 100%
+  background-color #EFEFEF
+
+.zones
   height 100%
   justify-content center
 
