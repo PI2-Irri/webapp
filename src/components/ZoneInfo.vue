@@ -74,10 +74,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.card-info
-  width 80vh
-  background-color $grey-2
-
 .title
   font-size 13px
   color $grey-8
