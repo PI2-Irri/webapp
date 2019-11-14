@@ -19,7 +19,7 @@
             round color="secondary"
             icon="mdi-plus"
             size="20px"
-            @click.native="registerZone()").add-zone
+            @click.native="registerZone()").add-component
       register-zone(
           :visibility="registerVisibility"
           @hide-dialog="changeZoneComponentVisibility(false)"
