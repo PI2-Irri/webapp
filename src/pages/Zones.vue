@@ -1,5 +1,10 @@
 <template lang="pug">
   q-page.zones-container
+    q-btn(
+        flat
+        @click.native="backToControllers()"
+      ).return-btn
+      q-icon(name="mdi-arrow-left" size="25px")
     div.flex.zones
       span.zones_controller-name {{ getControllerName() }}
       div.zones_menu
@@ -88,12 +93,24 @@ export default {
     },
     async changeZoneComponentVisibility (value) {
       this.registerVisibility = value
+    },
+    backToControllers () {
+      this.$router.push({ 'name': 'controllers' })
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
+.return-btn
+  color $grey-8
+  padding-top 60px
+  border none
+  background none
+  padding-left 15px
+  &:focus
+    background-color black
+
 .zone-item + .zone-item
   border-top 4px solid #efefef
 
@@ -102,7 +119,6 @@ export default {
   background-color #EFEFEF
 
 .zones
-  padding-top 50px
   height 100%
   justify-content center
 
