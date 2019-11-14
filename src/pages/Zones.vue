@@ -126,7 +126,7 @@ export default {
   font-size 30px
   font-weight 400
   color $grey-8
-  margin 25px 0
+  margin-bottom 25px
 
 .zones_menu
   border-radius 8px
