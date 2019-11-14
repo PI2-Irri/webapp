@@ -66,6 +66,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.background
+  width 100%
+  padding-top 50px
+
 .add-controller
   position absolute
   right 5vw
