@@ -33,8 +33,8 @@ q-dialog(
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { connectControllers } from '../api/api'
+import { mapGetters, mapActions } from 'vuex'
+import { connectControllers, getControllersInfo } from '../api/api'
 
 export default {
   name: 'RegisterControllerComponent',
@@ -55,6 +55,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions('controllers', ['setUserControllers']),
     async emitHideEvent () {
       this.infos.name = ''
       this.infos.token = ''
@@ -67,6 +68,11 @@ export default {
         ...this.infos
       }, this.owner)
 
+      let userControllers
+      userControllers = await getControllersInfo(this.currentUser)
+      this.setUserControllers(userControllers)
+
+      window.location.reload()
       this.emitHideEvent()
     }
   },
