@@ -44,13 +44,19 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('users', ['currentUser'])
+    ...mapGetters('users', ['currentUser']),
+    ...mapGetters('controllers', ['userControllers'])
   },
   async created () {
-    this.controllers = await getControllersInfo(this.currentUser)
+    let userControllers
+    userControllers = await getControllersInfo(this.currentUser)
+
+    this.setUserControllers(userControllers)
+    this.controllers = this.userControllers
   },
   methods: {
     ...mapActions('controllers', ['setSelectedController']),
+    ...mapActions('controllers', ['setUserControllers']),
     async registerController () {
       this.changeControllerVisibility(true)
     },

@@ -1,3 +1,4 @@
 export default {
-  selectedController: null
+  selectedController: null,
+  userControllers: null
 }
