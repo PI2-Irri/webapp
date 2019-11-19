@@ -17,11 +17,13 @@ export default {
   name: 'TopBarLayout',
   methods: {
     ...mapActions('users', ['setCurrentUser']),
+    ...mapActions('controllers', ['setUserControllers']),
     async logout () {
-      let user = null
+      let logoutUser = null
 
       this.$router.push({ 'name': 'login' })
-      this.setCurrentUser(user)
+      this.setCurrentUser(logoutUser)
+      this.setUserControllers(logoutUser)
     }
   }
 }
