@@ -63,7 +63,7 @@ export default {
       this.$router.push({ 'name': 'login' })
     }
 
-    this.zones = this.fetchZones()
+    this.fetchZones()
   },
   computed: {
     ...mapGetters('controllers', ['selectedController']),
@@ -80,13 +80,16 @@ export default {
         { ...this.infos },
         this.currentUser.token
       )
+
       this.changeInfosVisibility(true)
     },
     async changeInfosVisibility (value) {
       this.infosVisibility = value
     },
-    fetchZones () {
-      return this.selectedController.zones
+    async fetchZones () {
+      let zonesController = this.selectedController.zones
+
+      this.zones = zonesController
     },
     async registerZone () {
       this.changeZoneComponentVisibility(true)

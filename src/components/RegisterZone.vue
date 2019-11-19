@@ -31,8 +31,8 @@
             ) Cancel</template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { createZone } from '../api/api'
+import { mapGetters, mapActions } from 'vuex'
+import { createZone, getControllersInfo } from '../api/api'
 
 export default {
   name: 'RegisterZones',
@@ -54,14 +54,22 @@ export default {
     }
   },
   methods: {
+    ...mapActions('controllers', ['setSelectedController']),
     async registerZone () {
-      this.setZoneArea()
       this.infos.controller = this.selectedController.token
       await createZone({ ...this.infos }, this.currentUser.token)
-      this.emitHideEvent()
-    },
-    async setZoneArea () {
-      // TODO: set latitude and longitude
+
+      let newZone = await getControllersInfo(this.currentUser)
+      let controller
+
+      for (controller in newZone) {
+        if (newZone[controller].token === this.selectedController.token) {
+          this.setSelectedController(newZone[controller])
+
+          window.location.reload()
+          this.emitHideEvent()
+        }
+      }
     },
     async emitHideEvent () {
       this.infos.name = ''

@@ -63,10 +63,7 @@ export default {
     },
     async registerController () {
       this.owner = this.currentUser.token
-
-      await connectControllers({
-        ...this.infos
-      }, this.owner)
+      await connectControllers({ ...this.infos }, this.currentUser.token)
 
       let userControllers
       userControllers = await getControllersInfo(this.currentUser)
