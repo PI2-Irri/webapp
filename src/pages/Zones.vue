@@ -9,7 +9,13 @@
       span.zones_controller-name {{ getControllerName() }}
       vc-calendar(title-position="left"
                   :attributes='attrs'
+                  @dayclick="showDayClicked"
       ).calendar
+      calendar-day(
+        :visibility="dayVisibility"
+        :selectedDay="selectedDay[0]"
+        @hide-dialog="changeDayVisibility(false)"
+        )
       div.zones_menu
         zone-item(
           v-for="zone in zones"
@@ -38,6 +44,7 @@
 <script>
 import ZoneItem from 'components/ZoneItem.vue'
 import ZoneInfo from 'components/ZoneInfo.vue'
+import CalendarDay from 'components/CalendarDay.vue'
 import RegisterZone from 'components/RegisterZone.vue'
 import { mapGetters } from 'vuex'
 import { getZonesInfo } from '../api/api'
@@ -47,18 +54,49 @@ export default {
   components: {
     'zone-info': ZoneInfo,
     'zone-item': ZoneItem,
-    'register-zone': RegisterZone
+    'register-zone': RegisterZone,
+    'calendar-day': CalendarDay
   },
   data () {
     return {
       infosVisibility: false,
+      registerVisibility: false,
+      dayVisibility: false,
       selectedZone: [{ 'name': '' }],
+      selectedDay: [{
+        'date': '01/01/01',
+        'schedule': [
+          '13:50',
+          '10:25',
+          '13:50',
+          '10:25',
+          '13:50',
+          '10:25',
+          '13:50',
+          '10:25',
+          '13:50',
+          '10:25',
+          '13:50',
+          '10:25',
+          '13:50',
+          '10:25',
+          '13:50',
+          '10:25',
+          '13:50',
+          '10:25',
+          '13:50',
+          '10:25',
+          '13:50',
+          '10:25',
+          '13:50',
+          '10:25'
+        ]
+      }],
       zones: [],
       infos: {
         token: '',
         zone_name: ''
       },
-      registerVisibility: false,
       attrs: [
         {
           key: 'today',
@@ -109,6 +147,12 @@ export default {
     },
     backToControllers () {
       this.$router.push({ 'name': 'controllers' })
+    },
+    async showDayClicked (day) {
+      this.changeDayVisibility(true)
+    },
+    async changeDayVisibility (value) {
+      this.dayVisibility = value
     }
   }
 }
