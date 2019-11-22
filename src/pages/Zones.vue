@@ -13,7 +13,7 @@
       ).calendar
       calendar-day(
         :visibility="dayVisibility"
-        :selectedDay="selectedDay[0]"
+        :selectedDay="selectedDay"
         @hide-dialog="changeDayVisibility(false)"
         )
       div.zones_menu
@@ -63,35 +63,42 @@ export default {
       registerVisibility: false,
       dayVisibility: false,
       selectedZone: [{ 'name': '' }],
-      selectedDay: [{
-        'date': '01/01/01',
-        'schedule': [
-          '13:50',
-          '10:25',
-          '13:50',
-          '10:25',
-          '13:50',
-          '10:25',
-          '13:50',
-          '10:25',
-          '13:50',
-          '10:25',
-          '13:50',
-          '10:25',
-          '13:50',
-          '10:25',
-          '13:50',
-          '10:25',
-          '13:50',
-          '10:25',
-          '13:50',
-          '10:25',
-          '13:50',
-          '10:25',
-          '13:50',
-          '10:25'
-        ]
-      }],
+      // TODO: get daysInfo from API
+      daysInfo: [
+        {
+          'zone': 'UED',
+          'attr': {
+            'dates': '2019-11-23',
+            'dot': 'blue'
+          },
+          'schedule': ['13:20', '15:10', '22:11']
+        },
+        {
+          'zone': 'UAC',
+          'attr': {
+            'dates': '2019-11-23',
+            'dot': 'blue'
+          },
+          'schedule': ['11:20', '15:11', '22:10']
+        },
+        {
+          'zone': 'Lappis',
+          'attr': {
+            'dates': '2019-11-22',
+            'dot': 'blue'
+          },
+          'schedule': ['11:20', '15:11', '22:10']
+        }
+      ],
+      selectedDay: [
+        {
+          'zone': '',
+          'attr': {
+            'dates': '',
+            'dot': ''
+          },
+          'schedule': []
+        }],
       zones: [],
       infos: {
         token: '',
@@ -100,7 +107,9 @@ export default {
       attrs: [
         {
           key: 'today',
-          highlight: true,
+          dot: {
+            color: 'blue'
+          },
           dates: new Date()
         }
       ]
@@ -116,6 +125,19 @@ export default {
   computed: {
     ...mapGetters('controllers', ['selectedController']),
     ...mapGetters('users', ['currentUser'])
+  },
+  async created () {
+    var attrsSet = new Set()
+    this.attrs = []
+
+    for (let info of this.daysInfo) {
+      if (!attrsSet.has(info.attr.dates)) {
+        this.attrs.push(info.attr)
+        attrsSet.add(info.attr.dates)
+      }
+    }
+
+    this.selectDay()
   },
   methods: {
     getControllerName () {
@@ -149,10 +171,20 @@ export default {
       this.$router.push({ 'name': 'controllers' })
     },
     async showDayClicked (day) {
+      this.selectedDay = []
+      // console.log(this.daysInfo.attr.dates)
+      for (let selDay of this.daysInfo) {
+        if (selDay.attr.dates === day.id) {
+          this.selectedDay.push(selDay)
+        }
+      }
+
       this.changeDayVisibility(true)
     },
     async changeDayVisibility (value) {
       this.dayVisibility = value
+    },
+    async selectDay (day) {
     }
   }
 }
@@ -204,3 +236,21 @@ export default {
   height auto
   margin-bottom 25px
 </style>
+
+<!-- daysInfo: [
+  {
+    'zone': 'UED',
+    'dates': '2019-11-22',
+    'schedule': ['13:20', '15:10', '22:11']
+  },
+  {
+    'zone': 'UAC',
+    'dates': '2019-11-23',
+    'schedule': ['13:20', '15:10', '22:11']
+  },
+  {
+    'zone': 'Lappis',
+    'date': '2019-11-24',
+    'schedule': ['13:20', '15:10', '22:11']
+  }
+], -->
