@@ -5,8 +5,11 @@
         @click.native="backToControllers()"
       ).return-btn
       q-icon(name="mdi-arrow-left" size="25px")
-    div.flex.zones
+    div.flex.column.zones
       span.zones_controller-name {{ getControllerName() }}
+      vc-calendar(title-position="left"
+                  :attributes='attrs'
+      ).calendar
       div.zones_menu
         zone-item(
           v-for="zone in zones"
@@ -55,7 +58,14 @@ export default {
         token: '',
         zone_name: ''
       },
-      registerVisibility: false
+      registerVisibility: false,
+      attrs: [
+        {
+          key: 'today',
+          highlight: true,
+          dates: new Date()
+        }
+      ]
     }
   },
   mounted () {
@@ -124,6 +134,7 @@ export default {
 .zones
   height 100%
   justify-content center
+  align-items center
 
 .zones_controller-name
   font-size 30px
@@ -134,13 +145,18 @@ export default {
 .zones_menu
   border-radius 8px
   width 90%
-  max-height 60vh
+  max-height 30vh
   overflow auto
-  background-color $grey-1
+  background-color white
 
 .add-zone
   position absolute
   bottom 8vh
   right 5vw
   padding 10px
+
+.calendar
+  width 90%
+  height auto
+  margin-bottom 25px
 </style>
