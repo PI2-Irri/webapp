@@ -1,10 +1,11 @@
 <template lang="pug">
   q-page.zones-container
-    q-btn(
-        flat
-        @click.native="backToControllers()"
-      ).return-btn
-      q-icon(name="mdi-arrow-left" size="25px")
+    div.flex.topbar-zones
+      q-btn(
+          flat
+          @click.native="backToControllers()"
+        ).return-btn
+        q-icon(name="mdi-arrow-left" size="25px")
     div.flex.column.zones
       span.zones_controller-name {{ getControllerName() }}
       vc-calendar(title-position="left"
@@ -191,14 +192,15 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.topbar-zones
+  margin auto
+  height 50px
+
 .return-btn
   color $grey-8
-  padding-top 60px
-  border none
+  z-index 3
+  color white
   background none
-  padding-left 15px
-  &:focus
-    background-color black
 
 .zone-item + .zone-item
   border-top 4px solid #efefef
@@ -236,21 +238,3 @@ export default {
   height auto
   margin-bottom 25px
 </style>
-
-<!-- daysInfo: [
-  {
-    'zone': 'UED',
-    'dates': '2019-11-22',
-    'schedule': ['13:20', '15:10', '22:11']
-  },
-  {
-    'zone': 'UAC',
-    'dates': '2019-11-23',
-    'schedule': ['13:20', '15:10', '22:11']
-  },
-  {
-    'zone': 'Lappis',
-    'date': '2019-11-24',
-    'schedule': ['13:20', '15:10', '22:11']
-  }
-], -->
