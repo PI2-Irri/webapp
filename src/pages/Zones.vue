@@ -6,18 +6,24 @@
           @click.native="backToControllers()"
         ).return-btn
         q-icon(name="mdi-arrow-left" size="25px")
+      q-btn(
+          flat
+          @click.native="changeCalendarVisibility()"
+        ).calendar-btn
+        q-icon(name="mdi-calendar-clock" size="25px")
     div.flex.column.zones
       span.zones_controller-name {{ getControllerName() }}
-      vc-calendar(title-position="left"
-                  :attributes='attrs'
-                  @dayclick="showDayClicked"
-      ).calendar
-      calendar-day(
-        :visibility="dayVisibility"
-        :selectedDay="selectedDay"
-        @hide-dialog="changeDayVisibility(false)"
-        )
-      div.zones_menu
+      div#calendar
+        vc-calendar(title-position="left"
+                    :attributes='attrs'
+                    @dayclick="showDayClicked"
+        ).calendar
+        calendar-day(
+          :visibility="dayVisibility"
+          :selectedDay="selectedDay"
+          @hide-dialog="changeDayVisibility(false)"
+          )
+      div#zones_menu
         zone-item(
           v-for="zone in zones"
           :key="zone.id"
@@ -137,8 +143,6 @@ export default {
         attrsSet.add(info.attr.dates)
       }
     }
-
-    this.selectDay()
   },
   methods: {
     getControllerName () {
@@ -173,7 +177,7 @@ export default {
     },
     async showDayClicked (day) {
       this.selectedDay = []
-      // console.log(this.daysInfo.attr.dates)
+
       for (let selDay of this.daysInfo) {
         if (selDay.attr.dates === day.id) {
           this.selectedDay.push(selDay)
@@ -185,7 +189,17 @@ export default {
     async changeDayVisibility (value) {
       this.dayVisibility = value
     },
-    async selectDay (day) {
+    async changeCalendarVisibility () {
+      var calendar = document.getElementById('calendar')
+      var zoneMenu = document.getElementById('zones_menu')
+
+      if (calendar.style.display === 'none') {
+        calendar.style.display = 'flex'
+        zoneMenu.style.maxHeight = '30vh'
+      } else {
+        calendar.style.display = 'none'
+        zoneMenu.style.maxHeight = '60vh'
+      }
     }
   }
 }
@@ -195,10 +209,15 @@ export default {
 .topbar-zones
   margin auto
   height 50px
+  justify-content space-between
 
 .return-btn
-  color $grey-8
   z-index 3
+  color white
+  background none
+
+.calendar-btn
+  z-index 4
   color white
   background none
 
@@ -215,15 +234,16 @@ export default {
   align-items center
 
 .zones_controller-name
+  margin-top 20px
   font-size 30px
   font-weight 400
   color $grey-8
-  margin-bottom 25px
+  margin-bottom 15px
 
-.zones_menu
+#zones_menu
   border-radius 8px
   width 90%
-  max-height 30vh
+  max-height 60vh
   overflow auto
   background-color white
 
@@ -237,4 +257,11 @@ export default {
   width 90%
   height auto
   margin-bottom 25px
+
+#calendar
+  height auto
+  width 100%
+  justify-content center
+  align-items center
+  display none
 </style>

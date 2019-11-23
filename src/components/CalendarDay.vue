@@ -57,7 +57,6 @@ export default {
   methods: {
     async emitHideEvent () {
       this.isLoading = false
-      console.log(this.selectedDay)
       this.$emit('hide-dialog')
     }
   }
