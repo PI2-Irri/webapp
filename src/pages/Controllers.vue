@@ -1,5 +1,11 @@
 <template lang="pug">
 q-page.background
+  div.flex.topbar-controller
+    q-btn(
+      flat
+      @click.native="logout()"
+      ).logout
+      q-icon(name="mdi-logout" color="white" size="25px")
   div.controller-container.flex.column
     span#title Controllers
     q-card(
@@ -57,6 +63,7 @@ export default {
   methods: {
     ...mapActions('controllers', ['setSelectedController']),
     ...mapActions('controllers', ['setUserControllers']),
+    ...mapActions('users', ['setCurrentUser']),
     async registerController () {
       this.changeControllerVisibility(true)
     },
@@ -66,15 +73,31 @@ export default {
     selectController (controller) {
       this.setSelectedController(controller)
       this.$router.push({ name: 'zones' })
+    },
+    async logout () {
+      let logoutUser = null
+
+      this.$router.push({ 'name': 'login' })
+      this.setCurrentUser(logoutUser)
+      this.setUserControllers(logoutUser)
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
+.logout
+  background none
+  z-index 3
+  float right
+
+.topbar-controller
+  height 50px
+  margin auto
+  flex-direction row-reverse
+
 .background
   width 100%
-  padding-top 50px
 
 .controller-container
   width 90vw
