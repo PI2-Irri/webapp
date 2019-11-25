@@ -6,8 +6,12 @@
   )
     q-card.card-info.schedulesInfo
       div.flex.column.calendar-container
-        p.title <b>Irrigation schedules:</b> {{ selectedDay[0].attr.dates }}
-        div(v-for="zone in selectedDay" style="margin-bottom: 10px; max-width: 95%; max-height: 150px")
+        div.flex.setting-schedule
+          p.title <b>Irrigation schedules:</b> {{ selectedDay[0].attr.dates }}
+          q-btn(icon="mdi-alarm-plus" flat).schedule-icon
+            q-popup-proxy(transition-show="scale" transition-hide="scale")
+              q-time
+        div(v-for="zone in selectedDay")#schedule-time
           span.title(style="margin-left: 20px") {{ zone.zone }}
           div.flex.schedule-container
             span(v-for="schedule in zone.schedule").schedules {{ schedule }}
@@ -18,7 +22,7 @@
   max-height 50vh
 
 .calendar-container
-  padding 0 0 20px 10px
+  padding 0 0 20px 15px
 
 .title
   font-size 15px
@@ -36,6 +40,23 @@
   width 55px
   color $grey-2
   text-align center
+
+.setting-schedule
+  justify-content space-between
+  padding-right 15px
+  width 100%
+
+#schedule-time
+  margin-bottom 10px
+  max-width 95%
+  max-height 150px
+
+.schedule-icon
+  margin-top -7px
+  color $grey-8
+  padding 0
+  height 25px
+
 </style>
 
 <script>

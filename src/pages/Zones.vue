@@ -37,7 +37,7 @@
         @hide-dialog="changeInfosVisibility(false)"
       )
       q-btn(
-            round color="secondary"
+            round color="primary"
             icon="mdi-plus"
             size="20px"
             @click.native="registerZone()").add-component
