@@ -54,7 +54,7 @@ import ZoneInfo from 'components/ZoneInfo.vue'
 import CalendarDay from 'components/CalendarDay.vue'
 import RegisterZone from 'components/RegisterZone.vue'
 import { mapGetters } from 'vuex'
-import { getZonesInfo } from '../api/api'
+import { getZonesInfo, getSchedulesInfo } from '../api/api'
 
 export default {
   name: 'ZonesPage',
@@ -70,33 +70,7 @@ export default {
       registerVisibility: false,
       dayVisibility: false,
       selectedZone: [{ 'name': '' }],
-      // TODO: get daysInfo from API
-      daysInfo: [
-        {
-          'zone': 'UED',
-          'attr': {
-            'dates': '2019-11-23',
-            'dot': 'blue'
-          },
-          'schedule': ['13:20', '15:10', '22:11']
-        },
-        {
-          'zone': 'UAC',
-          'attr': {
-            'dates': '2019-11-23',
-            'dot': 'blue'
-          },
-          'schedule': ['11:20', '15:11', '22:10']
-        },
-        {
-          'zone': 'Lappis',
-          'attr': {
-            'dates': '2019-11-22',
-            'dot': 'blue'
-          },
-          'schedule': ['11:20', '15:11', '22:10']
-        }
-      ],
+      daysInfo: [],
       selectedDay: [
         {
           'zone': '',
@@ -135,7 +109,10 @@ export default {
   },
   async created () {
     var attrsSet = new Set()
+    let param = { 'token': this.selectedController.token }
+
     this.attrs = []
+    this.daysInfo = await getSchedulesInfo({ ...param })
 
     for (let info of this.daysInfo) {
       if (!attrsSet.has(info.attr.dates)) {
