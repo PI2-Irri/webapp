@@ -11,7 +11,7 @@
           p.title <b>Irrigation schedules:</b> {{ selectedDay[0].attr.dates }}
           q-btn(icon="mdi-alarm-plus" flat).schedule-icon
             q-popup-proxy(transition-show="scale" transition-hide="scale")
-              q-time(v-model="infos.schedule" now-btn)
+              q-time(v-model="infos.time" now-btn)
                 div.flex.column.schedule-zone
                   q-select(standout="bg-teal text-white"
                     :options="zones"
@@ -50,16 +50,12 @@ export default {
       infos: {
         zone_name: null,
         token: null,
-        schedule: null
+        time: null
       }
     }
   },
   computed: {
     ...mapGetters('controllers', ['selectedController'])
-  },
-  async mounted () {
-    this.getZonesName()
-    console.log(this.zones)
   },
   methods: {
     async emitHideEvent () {
@@ -74,7 +70,8 @@ export default {
       }
     },
     async setNewSchedule () {
-      console.log(this.infos)
+      this.infos.token = this.selectedController.token
+      this.infos.time = this.selectedDay[0].attr.dates + ' ' + this.infos.time
     }
   }
 }
