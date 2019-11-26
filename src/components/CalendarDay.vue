@@ -20,10 +20,12 @@
                   div.flex.justify-between(style="width: 95%")
                     q-btn(outline
                       color="primary"
-                      label="Cancel").schedule-btn
+                      label="Cancel"
+                      v-close-popup).schedule-btn
                     q-btn(label="Schedule"
                       color="primary"
-                      @click="setNewSchedule").schedule-btn
+                      @click="setNewSchedule"
+                      v-close-popup).schedule-btn
         div(v-for="zone in selectedDay")#schedule-time
           span.title(style="margin-left: 20px") {{ zone.zone }}
           div.flex.schedule-container
@@ -32,6 +34,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { setSchedule, getSchedulesInfo } from '../api/api'
+
 export default {
   name: 'CalendarDayComponent',
   props: {
@@ -55,7 +59,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('controllers', ['selectedController'])
+    ...mapGetters('controllers', ['selectedController']),
+    ...mapGetters('users', ['currentUser'])
   },
   methods: {
     async emitHideEvent () {
@@ -72,6 +77,35 @@ export default {
     async setNewSchedule () {
       this.infos.token = this.selectedController.token
       this.infos.time = this.selectedDay[0].attr.dates + ' ' + this.infos.time
+
+      await setSchedule({ ...this.infos }, this.currentUser.token)
+      await this.updateZonesSchedules()
+    },
+    async updateZonesSchedules () {
+      var attrsSet = new Set()
+      let attrs = []
+      let daysInfo = null
+
+      let param = { 'token': this.selectedController.token }
+
+      attrs = []
+      daysInfo = await getSchedulesInfo({ ...param })
+
+      for (let info of daysInfo) {
+        if (!attrsSet.has(info.attr.dates)) {
+          attrs.push(info.attr)
+          attrsSet.add(info.attr.dates)
+        }
+      }
+
+      let day = this.selectedDay[0].attr.dates
+      this.selectedDay = []
+
+      for (let selDay of daysInfo) {
+        if (selDay.attr.dates === day) {
+          this.selectedDay.push(selDay)
+        }
+      }
     }
   }
 }
