@@ -3,23 +3,86 @@
     :value="visibility"
     minimized
     @hide="emitHideEvent()"
+    @before-show="getZonesName()"
   )
-    q-card.card-info.schedulesInfo
+    q-card.card-info.schedules-info
       div.flex.column.calendar-container
         div.flex.setting-schedule
           p.title <b>Irrigation schedules:</b> {{ selectedDay[0].attr.dates }}
           q-btn(icon="mdi-alarm-plus" flat).schedule-icon
             q-popup-proxy(transition-show="scale" transition-hide="scale")
-              q-time
+              q-time(v-model="infos.schedule" now-btn)
+                div.flex.column.schedule-zone
+                  q-select(standout="bg-teal text-white"
+                    :options="zones"
+                    v-model="infos.zone_name"
+                    label="Zone").zone-select
+                  div.flex.justify-between(style="width: 95%")
+                    q-btn(outline
+                      color="primary"
+                      label="Cancel").schedule-btn
+                    q-btn(label="Schedule"
+                      color="primary"
+                      @click="setNewSchedule").schedule-btn
         div(v-for="zone in selectedDay")#schedule-time
           span.title(style="margin-left: 20px") {{ zone.zone }}
           div.flex.schedule-container
             span(v-for="schedule in zone.schedule").schedules {{ schedule }}
 </template>
 
+<script>
+import { mapGetters } from 'vuex'
+export default {
+  name: 'CalendarDayComponent',
+  props: {
+    visibility: {
+      type: Boolean,
+      required: true
+    },
+    selectedDay: {
+      type: Array,
+      required: true
+    }
+  },
+  data () {
+    return {
+      zones: [],
+      infos: {
+        zone_name: null,
+        token: null,
+        schedule: null
+      }
+    }
+  },
+  computed: {
+    ...mapGetters('controllers', ['selectedController'])
+  },
+  async mounted () {
+    this.getZonesName()
+    console.log(this.zones)
+  },
+  methods: {
+    async emitHideEvent () {
+      this.isLoading = false
+      this.$emit('hide-dialog')
+    },
+    async getZonesName () {
+      this.zones = []
+
+      for (let zone of this.selectedController.zones) {
+        this.zones.push(zone.name)
+      }
+    },
+    async setNewSchedule () {
+      console.log(this.infos)
+    }
+  }
+}
+</script>
+
 <style lang="stylus" scoped>
-.schedulesInfo
-  max-height 50vh
+.schedules-info
+  max-height 100vh
 
 .calendar-container
   padding 0 0 20px 15px
@@ -35,7 +98,7 @@
 
 .schedules
   margin 5px
-  background-color #0a5959
+  background-color #0AA0A0
   border-radius 10px
   width 55px
   color $grey-2
@@ -57,29 +120,13 @@
   padding 0
   height 25px
 
-</style>
+.zone-select
+  width 95%
+  margin-bottom 15px
 
-<script>
-export default {
-  name: 'CalendarDayComponent',
-  props: {
-    visibility: {
-      type: Boolean,
-      required: true
-    },
-    selectedDay: {
-      type: Array,
-      required: true
-    }
-  },
-  data () {
-    return {}
-  },
-  methods: {
-    async emitHideEvent () {
-      this.isLoading = false
-      this.$emit('hide-dialog')
-    }
-  }
-}
-</script>
+.schedule-zone
+  align-items center
+
+.schedule-btn
+  width 48.5%
+</style>
