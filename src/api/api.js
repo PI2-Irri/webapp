@@ -10,7 +10,8 @@ const apiEndpoints = {
   CONTROLLERS: 'controllers/',
   ZONES: 'zones/',
   MEASUREMENTS: 'zones_info/',
-  SCHEDULES: 'schedules_info/'
+  SCHEDULES_INFO: 'schedules_info/',
+  SCHEDULES: 'schedules/'
 }
 
 async function get (endpoint, param = {}, header = {}) {
@@ -111,10 +112,16 @@ async function getZonesInfo (param, owner) {
 }
 
 async function getSchedulesInfo (param, owner) {
-  const res = await get(apiEndpoints.SCHEDULES, { params: param }, generateHeader(owner))
+  const res = await get(apiEndpoints.SCHEDULES_INFO, { params: param }, generateHeader(owner))
     .then((res) => res)
 
   return res.data
+}
+
+async function setSchedule (params, owner) {
+  let res = await post(apiEndpoints.SCHEDULES, params, generateHeader(owner))
+
+  return verifyResponse(res)
 }
 
 export {
@@ -124,5 +131,6 @@ export {
   getControllersInfo,
   createZone,
   getZonesInfo,
-  getSchedulesInfo
+  getSchedulesInfo,
+  setSchedule
 }
