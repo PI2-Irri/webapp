@@ -56,19 +56,26 @@ export default {
   methods: {
     ...mapActions('controllers', ['setSelectedController']),
     async registerZone () {
-      this.infos.controller = this.selectedController.token
-      await createZone({ ...this.infos }, this.currentUser.token)
+      if (this.infos.name !== '' && this.infos.zip !== '') {
+        this.infos.controller = this.selectedController.token
+        await createZone({ ...this.infos }, this.currentUser.token)
 
-      let newZone = await getControllersInfo(this.currentUser)
-      let controller
+        let newZone = await getControllersInfo(this.currentUser)
+        let controller
 
-      for (controller in newZone) {
-        if (newZone[controller].token === this.selectedController.token) {
-          this.setSelectedController(newZone[controller])
+        for (controller in newZone) {
+          if (newZone[controller].token === this.selectedController.token) {
+            this.setSelectedController(newZone[controller])
 
-          window.location.reload()
-          this.emitHideEvent()
+            window.location.reload()
+            this.emitHideEvent()
+          }
         }
+      } else {
+        this.$q.notify({
+          message: 'Zone name or ZIP field is empty',
+          color: 'negative'
+        })
       }
     },
     async emitHideEvent () {

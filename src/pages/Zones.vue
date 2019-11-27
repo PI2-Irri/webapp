@@ -67,6 +67,7 @@ export default {
   data () {
     return {
       infosVisibility: false,
+      attrsSet: new Set(),
       registerVisibility: false,
       dayVisibility: false,
       selectedZone: [{ 'name': '' }],
@@ -108,16 +109,15 @@ export default {
     ...mapGetters('users', ['currentUser'])
   },
   async created () {
-    var attrsSet = new Set()
     let param = { 'token': this.selectedController.token }
 
     this.attrs = []
     this.daysInfo = await getSchedulesInfo({ ...param })
 
     for (let info of this.daysInfo) {
-      if (!attrsSet.has(info.attr.dates)) {
+      if (!this.attrsSet.has(info.attr.dates)) {
         this.attrs.push(info.attr)
-        attrsSet.add(info.attr.dates)
+        this.attrsSet.add(info.attr.dates)
       }
     }
   },
@@ -153,12 +153,25 @@ export default {
       this.$router.push({ 'name': 'controllers' })
     },
     async showDayClicked (day) {
-      this.selectedDay = []
+      if (this.daysInfo[0] !== undefined && this.attrsSet.has(day.id) === true) {
+        this.selectedDay = []
 
-      for (let selDay of this.daysInfo) {
-        if (selDay.attr.dates === day.id) {
-          this.selectedDay.push(selDay)
+        for (let selDay of this.daysInfo) {
+          if (selDay.attr.dates === day.id) {
+            this.selectedDay.push(selDay)
+          }
         }
+      } else {
+        this.selectedDay = [
+          {
+            'zone': '',
+            'attr': {
+              'dates': '',
+              'dot': ''
+            },
+            'schedule': []
+          }]
+        this.selectedDay[0].attr.dates = day.id
       }
 
       this.changeDayVisibility(true)
