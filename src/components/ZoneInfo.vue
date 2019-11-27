@@ -12,22 +12,21 @@ q-dialog(
       div.container-info
         div.datas
           span.info-title Air Temperature
-          pan.data {{ selectedZone[0].air_temperature }} ºC
+          pan.data {{ selectedZone[0].air_temperature }}ºC
         div.datas
           span.info-title Precipitation
           span.data {{ selectedZone[0].precipitation }}%
       div.container-info
         div.datas
           span.info-title Ground Temp.
-          span.data {{ selectedZone[0].soil_temperature }} ºC
+          span.data {{ selectedZone[0].soil_temperature }}ºC
         div.datas
           span.info-title Ground Humidity
           span.data {{ selectedZone[0].ground_humidity }}%
       div.container-info.column
         div.datas(style="margin-bottom: 20px")
           span.info-title Water Consumption
-          // TODO: Set the variable water consumption from api
-          span.data 70L
+          span.data {{ selectedZone[0].water_consumption }}L
         span.info-title Modules
         div#battery-status.row
           div.modules-info(v-for="status_module in status_modules")
