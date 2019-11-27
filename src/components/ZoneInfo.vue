@@ -24,7 +24,11 @@ q-dialog(
           span.info-title Ground Humidity
           span.data {{ selectedZone[0].ground_humidity }}%
       div.container-info.column
-        span.info-title Módulos
+        div.datas(style="margin-bottom: 20px")
+          span.info-title Water Consumption
+          // TODO: Set the variable water consumption from api
+          span.data 70L
+        span.info-title Modules
         div#battery-status.row
           div.modules-info(v-for="status_module in status_modules")
             q-icon(name="mdi-battery-80" color="grey-8" size="24px")
@@ -102,6 +106,7 @@ export default {
       this.infos.zone_name = this.selectedZone[0].name
 
       let res = await irrigate({ ...this.infos }, this.currentUser.token)
+      console.log(res)
     }
   }
 }
