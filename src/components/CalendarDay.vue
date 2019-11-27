@@ -24,8 +24,8 @@
                       v-close-popup).schedule-btn
                     q-btn(label="Schedule"
                       color="primary"
-                      @click="setNewSchedule"
-                      v-close-popup).schedule-btn
+                      @click="setNewSchedule()"
+                      v-close-popup="this.infos.time !== null && this.infos.zone_name !== null").schedule-btn
         div(v-for="zone in selectedDay")#schedule-time
           span.title(style="margin-left: 20px") {{ zone.zone }}
           div.flex.schedule-container
@@ -75,11 +75,18 @@ export default {
       }
     },
     async setNewSchedule () {
-      this.infos.token = this.selectedController.token
-      this.infos.time = this.selectedDay[0].attr.dates + ' ' + this.infos.time
+      if (this.infos.time !== null && this.infos.zone_name !== null) {
+        this.infos.token = this.selectedController.token
+        this.infos.time = this.selectedDay[0].attr.dates + ' ' + this.infos.time
 
-      await setSchedule({ ...this.infos }, this.currentUser.token)
-      await this.updateZonesSchedules()
+        await setSchedule({ ...this.infos }, this.currentUser.token)
+        await this.updateZonesSchedules()
+      } else {
+        this.$q.notify({
+          message: 'Schedule or zone field is empty',
+          color: 'negative'
+        })
+      }
     },
     async updateZonesSchedules () {
       var attrsSet = new Set()
