@@ -50,6 +50,7 @@ module.exports = function (ctx) {
         'QItemLabel',
         'QForm',
         'QCard',
+        'QBtnDropdown',
         'QSelect',
         'QPopupProxy',
         'QCardSection',
