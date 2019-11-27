@@ -62,15 +62,22 @@ export default {
       this.$emit('hide-dialog')
     },
     async registerController () {
-      this.owner = this.currentUser.token
-      await connectControllers({ ...this.infos }, this.currentUser.token)
+      if (this.infos.name !== '' && this.infos.token !== '') {
+        this.owner = this.currentUser.token
+        await connectControllers({ ...this.infos }, this.currentUser.token)
 
-      let userControllers
-      userControllers = await getControllersInfo(this.currentUser)
-      this.setUserControllers(userControllers)
+        let userControllers
+        userControllers = await getControllersInfo(this.currentUser)
+        this.setUserControllers(userControllers)
 
-      window.location.reload()
-      this.emitHideEvent()
+        window.location.reload()
+        this.emitHideEvent()
+      } else {
+        this.$q.notify({
+          message: 'Controller name or controller token field is empty',
+          color: 'negative'
+        })
+      }
     }
   },
   computed: {

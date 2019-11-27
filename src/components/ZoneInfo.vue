@@ -105,8 +105,7 @@ export default {
       this.infos.is_active = true
       this.infos.zone_name = this.selectedZone[0].name
 
-      let res = await irrigate({ ...this.infos }, this.currentUser.token)
-      console.log(res)
+      await irrigate({ ...this.infos }, this.currentUser.token)
     }
   }
 }
