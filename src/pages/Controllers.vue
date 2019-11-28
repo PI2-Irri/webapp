@@ -9,14 +9,13 @@ q-page.background
       ).logout
         q-icon(name="mdi-bell-ring-outline" color="white" size="25px")
         q-menu(anchor="bottom right" self="top right")
-          q-item(style="width: 75vw" v-for="notification in notifications")
+          q-item(style="width: 75vw" v-for="notification in notifications"  v-bind:key="notification.date")
             q-item-section(avatar style="width: 10%")
-              q-avatar
+              q-avatar(v-bind:key="notification.date")
                 img(style="width: 80%" src="statics/images/ativo1.png")
             q-item-section.notification-message
               q-item-label {{ notification.message }}
-              q-item-label(caption) {{ notification.time }}
-          q-separator(color="grey-6" style="width: 90%; margin: auto")
+              q-item-label(caption) {{ notification.date }}
     q-btn(
       flat
       @click.native="logout()"
@@ -50,7 +49,7 @@ q-page.background
 </template>
 
 <script>
-import { getControllersInfo } from '../api/api'
+import { getControllersInfo, getNotifications } from '../api/api'
 import { mapGetters, mapActions } from 'vuex'
 import RegisterController from 'components/RegisterController.vue'
 
@@ -78,6 +77,7 @@ export default {
 
     this.setUserControllers(userControllers)
     this.controllers = this.userControllers
+    this.notifications = this.showNotifications()
   },
   methods: {
     ...mapActions('controllers', ['setSelectedController']),
@@ -116,18 +116,7 @@ export default {
       this.setUserControllers(logoutUser)
     },
     async showNotifications () {
-      // var eu = await getNotifications(this.currentUser.token)
-      // console.log(eu)
-      this.notifications = [
-        {
-          'time': '2019-27-11',
-          'message': 'Schedule 2019-27-11 15:30 : Zone Graminha in proper condition. No need to irrigate'
-        },
-        {
-          'time': '2019-27-12',
-          'message': 'Schedule 2019-27-11 15:30 : Zone Graminha in proper condition. No need to irrigate'
-        }
-      ]
+      this.notifications = await getNotifications(this.currentUser.token)
     }
   }
 }

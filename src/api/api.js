@@ -133,8 +133,7 @@ async function irrigate (params, owner) {
 }
 
 async function getNotifications (owner) {
-  let header = generateHeader(owner)
-  const res = await get(apiEndpoints.NOTIFICATION, { headers: header })
+  const res = await get(apiEndpoints.NOTIFICATION, generateHeader(owner))
     .then((res) => res)
 
   return res.data
