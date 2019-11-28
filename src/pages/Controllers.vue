@@ -1,11 +1,27 @@
 <template lang="pug">
 q-page.background
-  div.flex.topbar-controller
+  div.flex.justify-between.topbar-controller
+    q-btn(
+      flat
+      @click.native="showNotifications()"
+      no-caps
+      ).logout
+        q-icon(name="mdi-bell-ring-outline" color="white" size="25px")
+        q-menu(anchor="bottom right" self="top right")
+          q-item(style="width: 75vw")
+            q-item-section(avatar style="width: 10%")
+              q-avatar
+                img(style="width: 80%" src="statics/images/ativo1.png")
+            q-item-section
+              q-item-label Não foi necessário irrigar a Zona X da controller Y
+              q-item-label(caption) 2019-11-27
+          q-separator(color="grey-6" style="width: 90%; margin: auto")
     q-btn(
       flat
       @click.native="logout()"
       ).logout
-      q-icon(name="mdi-logout" color="white" size="25px")
+      q-icon(name="mdi-logout" color="white" size="25px").mdi-rotate-180
+
   div.controller-container.flex.column
     span#title Controllers
     q-card(
@@ -46,7 +62,8 @@ export default {
     return {
       currentSlide: '1',
       controllers: undefined,
-      registerVisibility: false
+      registerVisibility: false,
+      notifications: null
     }
   },
   computed: {
@@ -80,6 +97,9 @@ export default {
       this.$router.push({ 'name': 'login' })
       this.setCurrentUser(logoutUser)
       this.setUserControllers(logoutUser)
+    },
+    async showNotifications () {
+      console.log('uhu')
     }
   }
 }
