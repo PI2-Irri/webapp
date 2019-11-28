@@ -1,11 +1,27 @@
 <template lang="pug">
 q-page.background
-  div.flex.topbar-controller
+  div.flex.justify-between.topbar-controller
+    q-btn(
+      flat
+      @click.native="showNotifications()"
+      @before-show="showNotifications()"
+      no-caps
+      ).logout
+        q-icon(name="mdi-bell-ring-outline" color="white" size="25px")
+        q-menu(anchor="bottom right" self="top right")
+          q-item(style="width: 75vw" v-for="notification in notifications"  v-bind:key="notification.date")
+            q-item-section(avatar style="width: 10%")
+              q-avatar(v-bind:key="notification.date")
+                img(style="width: 80%" src="statics/images/ativo1.png")
+            q-item-section.notification-message
+              q-item-label {{ notification.message }}
+              q-item-label(caption) {{ notification.date }}
     q-btn(
       flat
       @click.native="logout()"
       ).logout
-      q-icon(name="mdi-logout" color="white" size="25px")
+      q-icon(name="mdi-logout" color="white" size="25px").mdi-rotate-180
+
   div.controller-container.flex.column
     span#title Controllers
     q-card(
@@ -22,7 +38,7 @@ q-page.background
           span.data-type Water Reservatory
           span.data {{ getWaterReservatoryStatus(controller.reservoir_level) }}
     q-btn(
-          round color="secondary"
+          round color="primary"
           icon="mdi-plus"
           size="20px"
           @click.native="registerController()").add-component
@@ -33,7 +49,7 @@ q-page.background
 </template>
 
 <script>
-import { getControllersInfo } from '../api/api'
+import { getControllersInfo, getNotifications } from '../api/api'
 import { mapGetters, mapActions } from 'vuex'
 import RegisterController from 'components/RegisterController.vue'
 
@@ -47,6 +63,7 @@ export default {
       currentSlide: '1',
       controllers: undefined,
       registerVisibility: false,
+      notifications: null,
       waterReservatory: '-'
     }
   },
@@ -60,6 +77,7 @@ export default {
 
     this.setUserControllers(userControllers)
     this.controllers = this.userControllers
+    this.notifications = this.showNotifications()
   },
   methods: {
     ...mapActions('controllers', ['setSelectedController']),
@@ -96,6 +114,9 @@ export default {
       this.$router.push({ 'name': 'login' })
       this.setCurrentUser(logoutUser)
       this.setUserControllers(logoutUser)
+    },
+    async showNotifications () {
+      this.notifications = await getNotifications(this.currentUser.token)
     }
   }
 }
@@ -120,6 +141,9 @@ export default {
   margin auto
   padding-top 15px
   justify-content center
+
+.notification-message
+  color $grey-9
 
 .controller-infos
   margin-bottom 10px

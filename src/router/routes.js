@@ -9,11 +9,6 @@ const routes = [
         component: () => import('pages/Controllers.vue')
       },
       {
-        path: '/register',
-        name: 'registerController',
-        component: () => import('pages/RegisterController.vue')
-      },
-      {
         path: '/zones',
         name: 'zones',
         component: () => import('pages/Zones.vue')
