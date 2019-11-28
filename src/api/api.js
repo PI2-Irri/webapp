@@ -12,7 +12,7 @@ const apiEndpoints = {
   MEASUREMENTS: 'zones_info/',
   SCHEDULES_INFO: 'schedules_info/',
   SCHEDULES: 'schedules/',
-  IRRIGATE: 'zones/active_zone/'
+  IRRIGATE: 'active_zone/'
 }
 
 async function get (endpoint, param = {}, header = {}) {
