@@ -20,7 +20,7 @@ q-page.background
           span.data {{ controller.zones.length }}
         div.flex.column.datas
           span.data-type Water Reservatory
-          span.data {{ controller.reservoir_level }}
+          span.data {{ getWaterReservatoryStatus(controller.reservoir_level) }}
     q-btn(
           round color="secondary"
           icon="mdi-plus"
@@ -46,7 +46,8 @@ export default {
     return {
       currentSlide: '1',
       controllers: undefined,
-      registerVisibility: false
+      registerVisibility: false,
+      waterReservatory: '-'
     }
   },
   computed: {
@@ -73,6 +74,21 @@ export default {
     selectController (controller) {
       this.setSelectedController(controller)
       this.$router.push({ name: 'zones' })
+    },
+    getWaterReservatoryStatus (status) {
+      switch (status) {
+        case 2:
+          this.waterReservatory = 'Full'
+          break
+        case 0:
+          this.waterReservatory = 'Empty'
+          break
+        default:
+          this.waterReservatory = '-'
+          break
+      }
+
+      return this.waterReservatory
     },
     async logout () {
       let logoutUser = null

@@ -12,29 +12,30 @@ q-dialog(
       div.container-info
         div.datas
           span.info-title Air Temperature
-          pan.data {{ selectedZone[0].air_temperature }} ºC
+          pan.data {{ selectedZone[0].air_temperature }}ºC
         div.datas
           span.info-title Precipitation
           span.data {{ selectedZone[0].precipitation }}%
       div.container-info
         div.datas
           span.info-title Ground Temp.
-          span.data {{ selectedZone[0].soil_temperature }} ºC
+          span.data {{ selectedZone[0].soil_temperature }}ºC
         div.datas
           span.info-title Ground Humidity
           span.data {{ selectedZone[0].ground_humidity }}%
       div.container-info.column
         div.datas(style="margin-bottom: 20px")
           span.info-title Water Consumption
-          // TODO: Set the variable water consumption from api
-          span.data 70L
+          span.data {{ selectedZone[0].water_consumption }}L
         span.info-title Modules
         div#battery-status.row
           div.modules-info(v-for="status_module in status_modules")
-            q-icon(name="mdi-battery-80" color="grey-8" size="24px")
-            //q-icon(v-else-if="" name="mdi-battery-40" color="grey-8" size="24px")
-            //q-icon(v-else name="mdi-battery-10" color="grey-8" size="24px")
-            q-icon(v-if="status_module === 1" name="mdi-checkbox-blank-circle" color="green" size="10px")
+            q-icon(v-if="status_module === 4" size="24px" name="mdi-battery-plus" color="grey-8")#teste
+            q-icon(v-else-if="status_module === 3" name="mdi-battery-80" color="grey-8" size="24px")
+            q-icon(v-else-if="status_module === 2" name="mdi-battery-40" color="grey-8" size="24px")
+            q-icon(v-else-if="status_module === 1" name="mdi-battery-10" color="grey-8" size="24px")
+            q-icon(v-else name="mdi-battery-alert" color="grey-8" size="24px")
+            q-icon(v-if="status_module >= 0" name="mdi-checkbox-blank-circle" color="green" size="10px")
             q-icon(v-else name="mdi-checkbox-blank-circle" color="red" size="10px")
       div.container-info#active-btn
         q-btn-dropdown(
