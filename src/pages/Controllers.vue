@@ -4,17 +4,18 @@ q-page.background
     q-btn(
       flat
       @click.native="showNotifications()"
+      @before-show="showNotifications()"
       no-caps
       ).logout
         q-icon(name="mdi-bell-ring-outline" color="white" size="25px")
         q-menu(anchor="bottom right" self="top right")
-          q-item(style="width: 75vw")
+          q-item(style="width: 75vw" v-for="notification in notifications")
             q-item-section(avatar style="width: 10%")
               q-avatar
                 img(style="width: 80%" src="statics/images/ativo1.png")
-            q-item-section
-              q-item-label Não foi necessário irrigar a Zona X da controller Y
-              q-item-label(caption) 2019-11-27
+            q-item-section.notification-message
+              q-item-label {{ notification.message }}
+              q-item-label(caption) {{ notification.time }}
           q-separator(color="grey-6" style="width: 90%; margin: auto")
     q-btn(
       flat
@@ -115,7 +116,18 @@ export default {
       this.setUserControllers(logoutUser)
     },
     async showNotifications () {
-      console.log('uhu')
+      // var eu = await getNotifications(this.currentUser.token)
+      // console.log(eu)
+      this.notifications = [
+        {
+          'time': '2019-27-11',
+          'message': 'Schedule 2019-27-11 15:30 : Zone Graminha in proper condition. No need to irrigate'
+        },
+        {
+          'time': '2019-27-12',
+          'message': 'Schedule 2019-27-11 15:30 : Zone Graminha in proper condition. No need to irrigate'
+        }
+      ]
     }
   }
 }
@@ -140,6 +152,9 @@ export default {
   margin auto
   padding-top 15px
   justify-content center
+
+.notification-message
+  color $grey-9
 
 .controller-infos
   margin-bottom 10px
