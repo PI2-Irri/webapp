@@ -22,7 +22,7 @@ q-page.background
           span.data-type Water Reservatory
           span.data {{ controller.reservoir_level }}
     q-btn(
-          round color="secondary"
+          round color="primary"
           icon="mdi-plus"
           size="20px"
           @click.native="registerController()").add-component
