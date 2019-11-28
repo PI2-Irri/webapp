@@ -12,7 +12,8 @@ const apiEndpoints = {
   MEASUREMENTS: 'zones_info/',
   SCHEDULES_INFO: 'schedules_info/',
   SCHEDULES: 'schedules/',
-  IRRIGATE: 'active_zone/'
+  IRRIGATE: 'active_zone/',
+  NOTIFICATION: 'notification/'
 }
 
 async function get (endpoint, param = {}, header = {}) {
@@ -131,6 +132,14 @@ async function irrigate (params, owner) {
   return verifyResponse(res)
 }
 
+async function getNotifications (owner) {
+  let header = generateHeader(owner)
+  const res = await get(apiEndpoints.NOTIFICATION, { headers: header })
+    .then((res) => res)
+
+  return res.data
+}
+
 export {
   makeLogin,
   makeSignUp,
@@ -140,5 +149,6 @@ export {
   getZonesInfo,
   getSchedulesInfo,
   setSchedule,
-  irrigate
+  irrigate,
+  getNotifications
 }
