@@ -12,14 +12,14 @@ q-dialog(
       div.container-info
         div.datas
           span.info-title Air Temperature
-          pan.data {{ selectedZone[0].air_temperature }}ºC
+          pan.data {{ Math.round(selectedZone[0].air_temperature) }}ºC
         div.datas
           span.info-title Precipitation
           span.data {{ selectedZone[0].precipitation }}mm
       div.container-info
         div.datas
           span.info-title Ground Temp.
-          span.data {{ selectedZone[0].soil_temperature }}ºC
+          span.data {{ Math.round(selectedZone[0].soil_temperature) }}ºC
         div.datas
           span.info-title Ground Humidity
           span.data {{ selectedZone[0].ground_humidity }}%
