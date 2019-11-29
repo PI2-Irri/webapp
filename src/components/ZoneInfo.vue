@@ -15,7 +15,7 @@ q-dialog(
           pan.data {{ selectedZone[0].air_temperature }}ºC
         div.datas
           span.info-title Precipitation
-          span.data {{ selectedZone[0].precipitation }}%
+          span.data {{ selectedZone[0].precipitation }}mm
       div.container-info
         div.datas
           span.info-title Ground Temp.
@@ -30,11 +30,7 @@ q-dialog(
         span.info-title Modules
         div#battery-status.row
           div.modules-info(v-for="status_module in status_modules")
-            q-icon(v-if="status_module === 4" size="24px" name="mdi-battery-plus" color="grey-8")#teste
-            q-icon(v-else-if="status_module === 3" name="mdi-battery-80" color="grey-8" size="24px")
-            q-icon(v-else-if="status_module === 2" name="mdi-battery-40" color="grey-8" size="24px")
-            q-icon(v-else-if="status_module === 1" name="mdi-battery-10" color="grey-8" size="24px")
-            q-icon(v-else name="mdi-battery-alert" color="grey-8" size="24px")
+            q-icon(size="24px" :name="setBattery(status_module)" color="grey-8")#teste
             q-icon(v-if="status_module >= 0" name="mdi-checkbox-blank-circle" color="green" size="10px")
             q-icon(v-else name="mdi-checkbox-blank-circle" color="red" size="10px")
       div.container-info#active-btn
@@ -93,6 +89,20 @@ export default {
     }
   },
   methods: {
+    setBattery (battery) {
+      switch (battery) {
+        case 1:
+          return 'mdi-battery-10'
+        case 2:
+          return 'mdi-battery-40'
+        case 3:
+          return 'mdi-battery-80'
+        case 4:
+          return 'mdi-battery-plus'
+        default:
+          return 'mdi-battery-alert'
+      }
+    },
     async emitHideEvent () {
       this.isLoading = false
       this.$emit('hide-dialog')
