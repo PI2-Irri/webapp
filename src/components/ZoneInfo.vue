@@ -28,7 +28,7 @@ q-dialog(
           span.info-title Water Consumption
           span.data {{ selectedZone[0].water_consumption }}L
         span.info-title Modules
-        div#battery-status.row
+        div.battery-status.row
           div.modules-info(v-for="status_module in status_modules")
             q-icon(size="24px" :name="setBattery(status_module)" color="grey-8")#teste
             q-icon(v-if="status_module >= 0" name="mdi-checkbox-blank-circle" color="green" size="10px")
@@ -145,11 +145,13 @@ export default {
   font-weight bold
   color $grey-8
 
-#battery-status
+.battery-status
   padding-top 10px
 
 .modules-info
-  margin auto
+  &:first-child
+    margin-left -4px
+  margin-left 15px
   align-items center
 
 #active-btn
