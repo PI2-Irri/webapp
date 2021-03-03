@@ -18,7 +18,7 @@
     "@babel/runtime-corejs2": "^7.0.0",
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.1",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "pug-plain-loader": "^1.0.0",
     "quasar": "^1.4.0",
     "stylus": "^0.54.7",
