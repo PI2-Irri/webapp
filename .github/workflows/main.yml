@@ -37,7 +37,7 @@ jobs:
         with:
           name: dist-folder
           path: dist
-      - uses: elgohr/Publish-Docker-Github-Action@master
+      - uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           name: irripi2/irrifront
           username: ${{ secrets.DOCKERHUB_USERNAME }}
